@@ -1,0 +1,67 @@
+Word clouds will be part of search
+(word bubbles) radius = weight -> # of datasets (nope: weighted by completion)
+color = theme, focus area?
+d3.js
+-> for search only, do not tain user direction
+for publishers too?
+size = dataset count
+color = type of publisher
+
+
+Delete ranking
+
+Topics == from meta tags (currated topic)
+
+No amazon/user bar
+
++ Publisher profile page
+
+completion rate: some algo to rate completion
+- replaces ranking
+
+
+User accounts to identify with publisher
+
+Each Focus Area gets a landing page (flatpages?)
++ picture
++ story
+
+
+Elasticsearch for wordpress dataset query & linkage
+
+
+Search params:
+- location (spatial entity dropdown)
+- time range
+- length of time
+
+loot data.gov USPR 10.0 icons ? restriced access & datasets
+
+No downloads, just open new tab to landing page of dataset
+
+
+Flag a dataset (report quality)
+
+
+Story
++ attribution field
+
+
+New Data Sets vs Updated Data Sets
+
+
+user profile page w/ contributions
++ industry role
++ user title
++ user selects & suggests tags (under topics)
+- admin will approve new tag suggestions
+? can user select more then one role
+
+Focus Areas => Subject Areas
+
+Validate dataset links -> then flag as broken link
+
+FOCUS ON DATASET MODERATION
+
+
+Curated collection -> Map to Subject Area & nesting

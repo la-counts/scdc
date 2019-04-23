@@ -1,0 +1,116 @@
+User
+====
+
+Username == email address
++ Display name
+
+Form -> email verify -> add profile
+
+Track recent:
+- searches
+- viewed story
+- viewed dataset
+
+Change email -> verify email
+
+Datasets
+========
+
+Will they be synced against the google spreadsheet?
+- no, each individual set will be sync against a location url
+
++ Publisher Model (aka Content Contributor)
++ Data Portal Model
++ DCAT (RDF) support https://www.w3.org/TR/vocab-dcat/
+
+Adding Datasets
+---------------
+
+Suggest Dataset....
+
+User specifies url of datasource, requirements?
+? Is this locked to certain sites?
+- currently a big form (spreadsheat):
+* publisher, subpublisher, publisher point
+* contact point (email)
+* identifier (url to metadata, optional)
+* accessLevel
+* license
+* rights
+* spatial, temporal
+* distribution, distributionFields (url to data dist)
+* accrualPeriod,
+* conformsTo, describedBy, describedByType
+* issued
+* language, landingPage, notes
+
+
+Integrations
+------------
+
+See row 172 in Datasets spreadsheet
+- no identifier
+- unfriendly distributionFields landing page
+http://www.lawndalecity.org/html/DEPTHTML/FIN/enterprisesystem.html
+- if unrecognized site, default to direct link with no metadata
+- May degrade download links -> download or download from source
+- Other portals like data.lacity.org have an API
+-- Socrata Dataset aka SODA - open data network detection & integration
+-- OpenGov datasets?
+-- ArcGIS Mapserver
+-- Junar API, kml, ???
+
+
+Stories
+=======
+
+Stories have photos
+* source - fb open graph? no, pure webhook
+* crop & sizing provided by wordpress (in webhook)
+
++ Subheading
+
++ outgoing url to track blog views
+
+
+[pending] Recently viewed stories -> can saved story
+
+
+Focus
+=====
+
+Images?
+
+
+Subscription
+============
+
+MailChimp
+
+
+Search
+======
+
+Elasticsearch?
+
++ Exclude words
+Filter based on topics and other filters
+no ratings for stories
+
+filter is defined by client
+- Download type: JSON - CSV
+- Fields
+
+[pending] No stories on map search or top rated
+
++ Geo entities:
+- jurisdiction
+- cities
+- zipcodes
+- promises
+
+Comments
+========
+
++ Profanity filter
+Direct to post

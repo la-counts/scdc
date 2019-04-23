@@ -1,0 +1,102 @@
+
+Social + CRUD + Admin for relating datasets to blog
+Webhooks for registering new articles & query API
+
+Home page
+- type in keywords and search
+- display recent datasets
+- display recent stories
+- hamburger menu
+-- focus areas
+-- stories ??
+
+- create profile (with fields) (same with wordpress - nope)
+-- focus areas
+-- auto approve with email confirmation?
+
+Subject matter expert
+- comment
+- write & edit story
+
+User
+- comment
+
+
+Activity page
+- saved searches (query)
+- saved datasets (links)
+- recently viewed
+- recently saved
+- recently posted
+
+Focus areas
+- Health Care, ...
+- word cloud
+-- topics
+-- data
+-- rated
+
+
+Focus Areas > Topics > Data Set (may belong to multiple topics) (could be blessed tags)
+
+
+Focus Area
+- topics & datasets -> list topics and their datasets
+- pop topics -> wordcloud of topics weighted by # of datasets
+- pop data -> wordcloud of datasets weighted by downloads
+- rated -> wordcloud of datasets weighted by rating
+
+Side Bar
+- featured stories
+- recently updated
+
+
+Advanced Search
+? full text ?
+- topic categories
+- demographics
+- geo area
+
+Search Results
+- sort by: Best Match, newest, most popular, rates, geo
+- story or data
+- data: file types, download count, last update
+- stories: tags, data posted
+- Side bar: related stories, related tags
+- Side bar: filters
+- CTA: did you find what you looking for?
+
+
+Dataset Page
+- description
+- definitions
+- tags
+- rating
+- meta fields
+- other
+- linked data
+- linked stories
+- relevant data (related based on tags)
+- relevant stories (related based on tags)
+- guest gets download and see ranking, but no view comments
+- comments - rating, helpful, unhelpful, moderated, flat (talk to greg)
+-- subject matter experts (user gets an icon from admin)
+
+
+Recent Stories
+- list
+- direct links to blog
+
+
+Data provider / curator (model) -> datasets
+- data sources page (list), expand to see contributions
+
+
+Search by geo area
+- jurisdiction overlaps: water districts, elected official, school districts
+- map results
+- filter by geo area
+- other filter criteria
+
+
+Contact us, etc

@@ -1,0 +1,19 @@
+Notes from client meeting.
+
+* How to select stories for the front page? (assuming it should be curated)
+* Each panel in user overview gets its own page (ie save searches)
+* Dataset gets a subhead or does it just use curated_collection?
+* Apply hard limit for displaying "linked" items and
+** link to search for more items (search stories by dataset id, search datasets by story id)
+** Order by Most recent?
+
+* Linked -> curated
+* Related -> broad search over meta fields (tags & concepts)
+
+drop linked stories from story, related stories only
+
+add comments to stories
+
+search for signed in users only? seems mobile has a different workflow...
+
+tags => user_tags (auto complete from concepts though)
