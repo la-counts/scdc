@@ -1,0 +1,19 @@
+version: '2'
+services:
+  cli:
+    volumes:
+      - .:/code
+    env_file: .env
+    environment:
+      DEBUG: "1"
+      ENABLE_DEBUG_TOOLBAR: "true"
+      ENABLE_DEV_EMAIL: "true"
+  web:
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    env_file: .env
+    environment:
+      DEBUG: "1"
+      ENABLE_DEBUG_TOOLBAR: "true"
+      ENABLE_DEV_EMAIL: "true"

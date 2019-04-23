@@ -1,0 +1,17 @@
+/include
+/lib
+/bin
+/pip-selfcheck.json
+/docker-compose*.yml
+/src
+/public
+/specs
+/fixtures
+/var
+/share
+.git
+.cache
+*.swp
+*.env
+*.py[cdo]
+__pycache__

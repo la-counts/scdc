@@ -1,0 +1,40 @@
+version: '2'
+services:
+  db:
+    image: mdillon/postgis
+    restart: on-failure
+    environment:
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: datacommons
+  cache:
+    image: redis
+    restart: on-failure
+  cli:
+    build: .
+    image: datacommons
+    environment:
+      DATABASE_URL: postgis://django:password@db/datacommons
+      SEARCH_URL: whoosh:///code/var/search-index
+      CACHE_URL: redis://cache:6379
+      PYTHONUNBUFFERED: "TRUE"
+      HAYSTACK_RT_UPDATES: "FALSE"
+    entrypoint: python manage.py
+    command: check
+    depends_on:
+      - db
+      - cache
+  web:
+    image: datacommons
+    environment:
+      DATABASE_URL: postgis://django:password@db/datacommons
+      SEARCH_URL: whoosh:///code/var/search-index
+      CACHE_URL: redis://cache:6379
+      PYTHONUNBUFFERED: "TRUE"
+    restart: on-failure
+    command: gunicorn data_commons.wsgi -c data_commons/gunicorn.conf.py
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - cache

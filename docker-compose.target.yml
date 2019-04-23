@@ -1,0 +1,46 @@
+version: '2'
+services:
+  search:
+    image: library/elasticsearch:2.4.4
+    restart: on-failure
+    environment:
+      - transport.host=127.0.0.1
+      - http.host=0.0.0.0
+    ports:
+      - "9200:9200"
+  varnish:
+    image: eeacms/varnish
+    restart: on-failure
+    ports:
+      - "80:6081"
+    depends_on:
+      - web
+    environment:
+      CACHE_SIZE: 128M
+      BACKENDS: "web"
+      BACKENDS_PORT: "8000"
+      BACKENDS_PROBE_ENABLED: "False"
+      BACKENDS_PROBE_INTERVAL: 2s
+      BACKENDS_PROBE_WINDOW: "3"
+      BACKENDS_PROBE_THRESHOLD: "1"
+  cli:
+    env_file: production.env
+    environment:
+      DEBUG: "0"
+      ALLOWED_HOSTS: "*"
+      SEARCH_URL: elasticsearch2://search:9200/haystack
+    depends_on:
+      - db
+      - search
+      - cache
+  web:
+    env_file: production.env
+    environment:
+      DEBUG: "0"
+      ALLOWED_HOSTS: "*"
+      SEARCH_URL: elasticsearch2://search:9200/haystack
+    depends_on:
+      - db
+      - search
+      - cache
+    ports: []

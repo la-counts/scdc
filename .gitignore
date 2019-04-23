@@ -1,0 +1,16 @@
+/include
+/lib
+/bin
+/pip-selfcheck.json
+/docker-compose.override.yml
+/docker-compose.prod.yml
+/src
+/_autofixture
+/public
+/var
+/docs/_build
+*.swp
+*.py[cdo]
+*.env
+__pycache__
+.cache
