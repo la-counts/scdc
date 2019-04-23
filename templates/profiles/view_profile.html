@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n data_commons %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="profile-page-wrapper" class="account-page-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="profile-content">
+            {{profile}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

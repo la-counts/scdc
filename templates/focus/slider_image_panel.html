@@ -1,0 +1,37 @@
+{% load data_commons %}
+<div class="carousel slide">
+    <div class="featured-content-wrapper">
+        <div class="featured-content-image">
+            <!--<div class="featured-content-navigation">
+                <div class="featured-content-nav-icon nav-left">
+                    <a class="left carousel-control" href="#left"><img src="/static/images/carousel-nav-prev.svg"></a>
+                </div>
+                <div class="featured-content-nav-icon nav-right">
+                    <a class="right carousel-control" href="#right"><img src="/static/images/carousel-nav-next.svg"></a>
+                </div>
+                <div class="featured-content-slide-dots">
+                    <ul>
+                        {% for slide in items %}
+                            <li class="{% if forloop.counter == 1 %}selected{% endif %}"><a href="#slide-{{ forloop.counter }}"><i class="fa fa-circle" aria-hidden="true"></i></a></li>
+                        {% endfor %}
+                    </ul>
+                  </div>
+            </div>-->
+            <div class="featured-content-image-slides">
+                {% for slide in items %}
+                <div id="slide-{{ forloop.counter }}" class="featured-content-image-slide" style="background-image: url('{{slide.image.url}}');">
+                    <a href="{{slide.link}}">
+                        <div class="featured-content-text">
+                            <div class="featured-content-icon text-center">
+                                <img src="{{slide.icon.url}}">
+                            </div>
+                            <div class="text-center">{{slide.text}}</div>
+                        </div>
+                        <img src="{{slide.image.url}}" class="spacer">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

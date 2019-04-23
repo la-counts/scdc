@@ -1,0 +1,8 @@
+{% extends "base_error.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs static cms_tags menu_tags sekizai_tags cache %}
+
+{% block content %}
+<div class="error-wrapper">
+	{% static_placeholder "error content" %}
+</div>
+{% endblock content %}

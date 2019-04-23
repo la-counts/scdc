@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n static cms_tags menu_tags sekizai_tags %}
+
+{% block title %}Logged Out | {{ site.name }}{% endblock title %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="logout-page-wrapper" class="account-page-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget" data-widget="widget-title">
+                <div class="widget-inside">
+                    <h1 class="widget-title">See you soon</h1>
+                </div>
+            </div>
+            <p>You are now signed out. Please click <a href="/accounts/login/">here</a> to sign in.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

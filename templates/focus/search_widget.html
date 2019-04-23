@@ -1,0 +1,15 @@
+<div class="widget-search" data-widget="widget-search">
+   <div class="widget-inside">
+      {% if widget.title %}
+      <h2 class="widget-title">{{ widget.title }}</h2>
+      {% endif %}
+       <div class="widget-content">
+           <form method="GET" action="{{ widget.endpoint }}" class="primary searchform">
+                <button type="submit" class="search-icon">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+                <input type="text" class="search-input" name="q" placeholder="{{ widget.placeholdertext }}" required="required"/>
+            </form>
+       </div>
+   </div>
+</div>

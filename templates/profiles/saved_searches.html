@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n data_commons %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+
+{% for search in object_list %}
+<div>
+<i class="fa fa-crosshairs" aria-hidden="true"></i>
+<a href="{{search.get_absolute_url}}">{{search}}</a>
+</div>
+{% endfor %}
+
+{% endblock %}

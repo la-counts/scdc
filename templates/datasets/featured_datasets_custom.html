@@ -1,0 +1,13 @@
+{% load data_commons %}
+<div class="widget" data-widget="datasets">
+    <div class="widget-inside">
+        {% if widget.show_title %}
+        <h2 class="widget-title">{{ widget.title }}</h2>
+        {% endif %}
+        <div class="widget-content">
+            {% for ds in datasets %}
+            {% dataset_headline ds %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

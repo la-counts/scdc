@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs static cms_tags menu_tags sekizai_tags cache %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block body_class %}{{ block.super }} fullwidth{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% page_attribute "page_title" as title %}
+    {% if title != 'home' %}
+        {% breadcrumb title "" %}
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+<div class="header-content">
+    {% placeholder "header content" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row priority-page-content">
+    <div class="sidebar col-md-4">
+        <div class="sidebar-inside">
+            {% placeholder "sidebar" %}
+        </div>
+    </div>
+    <div class="content col-md-8">
+        {% placeholder "content" %}
+        <div class="collapsible">
+            {% placeholder "collapsible" %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

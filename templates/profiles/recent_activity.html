@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+{% load i18n data_commons activity_tags django_bootstrap_breadcrumbs %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb user "view-self" %}
+  {% breadcrumb "Recent Activity" "" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h2>My Activity</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9 col-sm-8">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="object-panel" id="activity_recently_viewed">
+          <div class="object-panel-inside">
+            <h3>Recently Viewed</h3>
+            <div class="panel-content">
+              <div class="search-result cloner" id="dataset_cloner" data-type="dataset">
+                <div class="search-result-type-icon">
+                  <i class="fa fa-list-alt" aria-hidden="true"></i>
+                </div>
+                <div class="search-result-content">
+                  <div class="search-result-title"><a class="search-result-link" href="#">Dataset Title</a></div>
+                  <div class="search-result-description">
+                    <a class="search-result-link" href="#">Dataset Description Goes Here!</a>
+                    <a class="search-result-link" href="#" class="read-more">
+                      <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div class="search-result-tags">
+                    <i class="fa fa-tag" aria-hidden="true"></i>
+                    <a class="label label-default" href="#tag-1">Tag 1</a>
+                    <a class="label label-default" href="#tag-2">Tag 2</a>
+                    <a class="label label-default" href="#tag-3">Tag 3</a>
+                  </div>
+                  <div class="search-result-meta">
+                    <ul>
+                      <li>Posted: 4.12.17</li>
+                      <li>Source</li>
+                      <li>Geo Area</li>
+                      <li>20xx - 20xx</li>
+                      <li>File Types: .csv .xml</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!--/object-panel#recently-viewed-->
+        <div class="object-panel" id="activity_recently_searched">
+          <div class="object-panel-inside">
+            <h3>Recent Searches</h3>
+            <div class="panel-content">
+              <ul class="panel-list-with-icons">
+                <li class="cloner" id="searches_cloner">
+                  <i class="fa fa-crosshairs" aria-hidden="true"></i><a class="search-result-link" href="#">Search Title</a>
+                </li>
+              </ul>
+            </div><!--/.panel-content-->
+          </div>
+        </div><!--/object-panel#recent-searches-->
+        <div class="object-panel">
+          <div class="object-panel-inside">
+            <h3>Comments</h3>
+            <div class="panel-content">
+              {% for x in '12' %}
+              <div class="comment">
+                <div class="comment-image">
+                  <img src="//via.placeholder.com/60x60">
+                </div>
+                <div class="comment-area">
+                  <div class="comment-title" title="Comment Headline goes here. If it's too long, it will ellipsis...">Comment Headline goes here. If it's too long, it will ellipsis...</div>
+                  <div class="comment-author">Comment Author <span class="verified"><i class="fa fa-check" aria-hidden="true"></i></span></div>
+                  <div class="comment-text">
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas.
+                  </div>
+                  <div class="comment-meta">
+                    <ul class="comment-meta-icons">
+                      <li class="comment-downvote"><i class="fa fa-chevron-down" aria-hidden="true"></i></li>
+                      <li class="comment-upvote"><i class="fa fa-chevron-up" aria-hidden="true"></i></li>
+                      <li class="comment-time">2h <i class="fa fa-clock-o" aria-hidden="true"></i></li>
+                      <li class="comment-dataset">Data Set Name</li>
+                      <li class="comment-flag"><i class="fa fa-flag" aria-hidden="true"></i></li>
+                    </ul>
+                  </div>
+                </div>
+              </div><!--/.comment-->
+              {% endfor %}
+            </div><!--/.panel-content-->
+          </div>
+        </div><!--/object-panel#comments-->
+        <div class="object-panel">
+          <div class="object-panel-inside">
+          <h3>Followed Comments</h3>
+          <div class="panel-content">
+            {% for x in '123' %}
+            <div class="comment">
+              <div class="comment-image">
+                <img src="//via.placeholder.com/60x60">
+              </div>
+              <div class="comment-area">
+                <div class="comment-title" title="Comment Headline goes here. If it's too long, it will ellipsis...">Comment Headline goes here. If it's too long, it will ellipsis...</div>
+                <div class="comment-author">Comment Author <span class="verified"><i class="fa fa-check" aria-hidden="true"></i></span></div>
+                <div class="comment-text">
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas.
+                </div>
+                <div class="comment-meta">
+                  <ul class="comment-meta-icons">
+                    <li class="comment-downvote"><i class="fa fa-chevron-down" aria-hidden="true"></i></li>
+                    <li class="comment-upvote"><i class="fa fa-chevron-up" aria-hidden="true"></i></li>
+                    <li class="comment-time">2h <i class="fa fa-clock-o" aria-hidden="true"></i></li>
+                    <li class="comment-dataset">Data Set Name</li>
+                    <li class="comment-flag"><i class="fa fa-flag" aria-hidden="true"></i></li>
+                  </ul>
+                </div>
+              </div>
+            </div><!--/.comment-->
+            {% endfor %}
+            </div><!--/.panel-content-->
+          </div>
+        </div><!--/object-panel#followed-comments-->
+      </div>
+      <div class="col-md-5">
+        <div class="object-panel">
+          <div class="object-panel-inside">
+            <h3>Saved Data Sets</h3>
+            <div class="panel-content">
+              <ul class="panel-list-with-icons">
+              {% for x in '1234' %}
+                <li>
+                  <i class="fa fa-list-alt" aria-hidden="true"></i><a href="#data-set-1">Data Set Name 1</a>
+                  <div class="panel-list-item-meta">
+                    <span>Date Posted | Source</span>
+                  </div>
+                </li>
+              {% endfor %}
+              </ul>
+            </div><!--/.panel-content-->
+          </div>
+        </div><!--/object-panel#saved-data-sets-->
+        <div class="object-panel">
+          <div class="object-panel-inside">
+            <h3>Saved Data Sets</h3>
+            <div class="panel-content">
+              <ul class="panel-list-with-icons">
+              {% for x in '1234' %}
+                <li>
+                  <i class="fa fa-crosshairs" aria-hidden="true"></i><a href="#data-set-1">Keyword + Keyword + Keyword</a>
+                </li>
+              {% endfor %}
+              </ul>
+            </div><!--/.panel-content-->  
+          </div>
+        </div><!--/object-panel#saved-data-sets-2-->
+        <div class="object-panel">
+          <div class="object-panel-inside">
+            <h3>Saved Stories</h3>
+            <div class="panel-content">
+              <ul class="panel-list-with-icons">
+                {% for x in '1234' %}
+                <li>
+                  <i class="fa fa-book" aria-hidden="true"></i><a href="#story-title-{{x}}">Story Title {{x}}</a>
+                  <div class="panel-list-item-meta">
+                    <span>Date Posted | Topic Area</span>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div><!--/.panel-content-->  
+          </div>
+        </div><!--/object-panel#saved-stories-->
+      </div>
+    </div>
+  </div><div class="col-md-3 col-sm-4 content-sidebar" id="activies-sidebar">
+    <div class="object-widget" data-color="blue">
+        <h2>Featured Stories</h2>
+        {% recent_stories %}
+    </div>
+    <div class="object-widget" data-color="lightblue">
+        <h2>New Data Sets</h2>
+        {% recent_datasets %}
+    </div>
+    <div class="object-widget" data-color="grey">
+        <h2>Recently Updated</h2>
+        {% updated_datasets %}
+    </div>
+  </div>
+  <!--
+  {% activity_stream 'actor' profile %}
+  {% for action in stream %}
+      <div>
+      {% display_action action %}
+      </div>
+  {% endfor %}
+  -->
+</div>
+<script>
+  (function($) {
+    var recentDatasets = getRecentViews('dataset');
+    var recentSearches = getRecentViews('search');
+    
+    if (recentDatasets) {
+        var baseDatasetItem = $('#dataset_cloner');
+        $.each(recentDatasets, function() {
+          var me = this;
+          var datasetTitle = me.title;
+          var datasetUrl = me.url;
+          
+          var datasetItem = baseDatasetItem.clone();
+          datasetItem.removeAttr('id');
+          datasetItem.removeClass('cloner');
+          datasetItem.find('.search-result-link').attr('href', datasetUrl);
+          datasetItem.find('.search-result-title .search-result-link').html(datasetTitle);
+          datasetItem.appendTo('#activity_recently_viewed .panel-content');
+        });
+    } else {
+      $('#activity_recently_viewed .panel-content').html('<div id="recent_datasets_nodata" class="text-center">No datasets recently viewed</div>');
+    }
+    
+    if (recentSearches) {
+        var baseSearchItem = $('#searches_cloner');
+        $.each(recentSearches, function() {
+          var me = this;
+          var searchTitle = me.title;
+          var searchUrl = me.url;
+          
+          var searchItem = baseSearchItem.clone();
+          searchItem.removeAttr('id');
+          searchItem.removeClass('cloner');
+          
+          searchItem.find('.search-result-link').attr('href', searchUrl);
+          searchItem.find('.search-result-link').html(searchTitle);
+          searchItem.appendTo('#activity_recently_searched .panel-list-with-icons');
+        });
+    } else {
+      $('#activity_recently_searched .panel-list-with-icons').html('<li><div id="recent_searches_nodata" class="text-center">No recent searches</div></li>');
+    }
+    
+  })( jQuery );
+</script>
+{% endblock %}

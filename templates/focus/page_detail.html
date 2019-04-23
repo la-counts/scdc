@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n imagekit django_bootstrap_breadcrumbs data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Focus Areas" "focus:index" %}
+  {% breadcrumb page.title "focus:page_detail" page.slug %}
+{% endblock %}
+
+{% block title %}{{ page.title }}{% endblock title %}
+
+{% block body_class %}focus-area{% endblock %}
+
+
+{% block content %}
+{% if page.link_image %}
+<div class="row">
+  <div class="col-md-12">
+    <h2>{{page.title}}</h2>
+
+    <div>
+      <div class="pull-left">
+        {{page.body|safe}}
+      </div>
+      {% comment %}
+      <div class="pull-right">
+        {% thumbnail '600x600' page.link_image %}
+      </div>
+      {% endcomment %}
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="row">
+  <div class="col-md-12">
+    <h2>{{page.title}}</h2>
+
+    <div>
+      {{page.body|safe}}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<aside>
+  <h3>Featured Stories</h3>
+  <div class="row featured-stories">
+  {% with page.featured_stories.published as featured_stories %}
+  {% if featured_stories %}
+  {% for story in featured_stories %}
+    {% story_card story %}
+  {% endfor %}
+  {% else %}
+    <div class="object-widget" data-clor="blue">
+      {% recent_stories concepts=page.concepts.all %}
+    </div>
+  {% endif %}
+  {% endwith %}
+  </div>
+</aside>
+
+<div class="row">
+<aside class="col-md-4 object-widget" data-color="blue">
+  <h3>Featured Datasets</h3>
+  {% for cr in page.featured_catalog_records.all %}
+    {% dataset_headline cr %}
+  {% endfor %}
+</aside>
+<aside class="col-md-4 object-widget" data-color="lightblue">
+  <h3>New Datasets</h3>
+  {% recent_datasets concepts=page.concepts.all %}
+</aside>
+<aside class="col-md-4 object-widget" data-color="grey">
+  <h3>Recently Updated</h3>
+  {% updated_datasets concepts=page.concepts.all %}
+</aside>
+</div>
+{% endblock %}

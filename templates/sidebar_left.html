@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load cms_tags django_bootstrap_breadcrumbs %}
+
+{% block body_class %}{{ block.super }} sidebar_left{% endblock %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% page_attribute "page_title" as title %}
+  {% if title != 'home' %}
+    {% breadcrumb title "" %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="sidebar col-md-4">
+      <div class="sidebar-inside">
+        {% placeholder "sidebar" %}
+      </div>
+    </div>
+    <div class="content col-md-8">
+      {% if current_page.is_home %}
+        {% placeholder "slider" %}
+      {% endif %}
+      {% placeholder "content" %}
+    </div>
+  </div>
+{% endblock content %}

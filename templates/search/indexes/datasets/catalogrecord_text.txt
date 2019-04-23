@@ -1,0 +1,25 @@
+{{ object.title }}
+{{ object.description }}
+{{ object.curated_collection }}
+{{ object.keyword }}
+{{ object.tags.names|join:", " }}
+{{ object.spatial }}
+{{ object.publisher }}
+{{ object.funded_by }}
+{{ object.collection_protocol }}
+{{ object.submitted_by }}
+{{ object.sync_url }}
+
+{% for tag in dataset.meta_tags %}
+  {{tag.label}} = {{tag.value}}
+{% endfor %}
+
+{% for rc in object.recordcolumn_set.all %}
+{{ rc.field_name }}
+{{ rc.label }}
+{{ rc.description }}
+{% endfor %}
+
+{% for c in object.match_concepts.distinct %}
+{{c.our_search_labels}}
+{% endfor %}

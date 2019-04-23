@@ -1,0 +1,6 @@
+{{ object.title }}
+{{ object.body }}
+{{ object.subheader }}
+{{ object.authored_by }}
+{{ object.organization }}
+{{ object.tags.names|join:" " }}

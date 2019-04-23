@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs bootstrap_pagination cms_tags %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Search" "datasets:search" %}
+{% endblock %}
+
+{% block title %}Search{% endblock title %}
+
+{% block body_class %}search{% endblock %}
+
+{% block header %}
+<div class="page-breadcrumbs">
+    <a href="/catalog/search">Search</a> {% if form.data.q %}> <span class="">Searching for "{{form.data.q}}"</span> {% endif %}
+</div>
+<div class="widget-search" data-widget="widget-search">
+   <div class="widget-inside">
+       <div class="widget-content">
+            <div class="widget-content">
+                <form method="GET" action="/catalog/search/" class="primary searchform">
+                    <button type="submit" class="search-icon">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                    <input type="text" value="{{form.data.q}}" class="search-input" name="q" placeholder="Search, ex.: early childhood education" required="required"/>
+                </form>
+            </div>
+       </div>
+   </div>
+</div>{% endblock %}
+
+{% block footerscripts %}
+{{ form.media }}
+<script>
+pushRecentView('search', {
+  title: "{{form.data.q}}",
+  url: window.location.href,
+});
+</script>
+{% endblock %}
+
+{% block content %}
+{% if not form.is_valid %}
+<div class="advanced-search-wrapper">
+    <form method="GET" action=".">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>Category</h3>
+            <div class="object-panel" data-color="blue">
+              <div class="object-panel-inside">
+                {% bootstrap_field form.concept %}
+              </div>
+              <div class="object-panel-inside">
+                {% bootstrap_field form.result_types %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3>Geo Area</h3>
+            <div class="object-panel" data-color="lightblue">
+              <div class="object-panel-inside">
+                {% bootstrap_field form.publisher %}
+              </div>
+              <div class="object-panel-inside">
+                {% bootstrap_field form.spatial_entity %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3>Access</h3>
+            <div class="object-panel" data-color="grey">
+              <div class="object-panel-inside">
+                <div class="search-group">
+                  {% bootstrap_field form.access_level %}
+                </div><!--/.search-group#access-->
+              </div><!--/.object-panel-inside-->
+            </div>
+          </div>
+        </div><!--/.row-->
+        <div class="row">&nbsp;</div>
+        <div class="row">
+          <div class="col-xs-12 text-center">
+            <input name="q" placeholder="Enter Keyword" value="{{form.data.q}}"/>
+            <button class="button style-4">Search</button>
+          </div>
+        </div><!--/.row-->
+    </form>
+</div><!--/.advanced-search-wrapper-->
+{% else %}
+<div class="search_results_wrapper">
+    <form method="GET" action=".">
+    <input name="q" value="{{form.data.q}}" type="hidden"/>
+    {{form.facet_display}}
+        <div class="container">
+            {% if user.is_authenticated and page_obj|length %}
+            <div class="row text-right save-story-wrapper">
+                <div class="col-xs-12">
+                    <saved-search class="save-story" href="{% url 'follow-search' %}" searchdata="{{form.data.urlencode}}">
+                        <a href="#" class="unsaved">
+                            <span class="save-star"><i class="fa fa-star-o" aria-hidden="true"></i></span>
+                            <span class="save-text">Save to my account</span>
+                        </a>
+                    </saved-search>
+                </div>
+            </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-sm-4 filter-groups">
+                    <!-- Begin faceting. -->
+                    <div class="widget" data-widget="search_filter">
+                        <div class="widget-inside">
+                            <h2 class="widget-title">Filter</h2>
+                            <div class="widget-content">
+                                {% if page_obj|length %}
+                                <div class="object-panel filter-panel" data-color="blue">
+                                    <div class="object-panel-inside">
+                                        <div class="search-group opened">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Concepts</div>
+                                            </div>
+                                            <div class="search-filter">
+                                                {% bootstrap_field form.concept show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#concepts-->
+                                    </div>
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'result_types' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Result Types</div>
+                                            </div>
+                                            <div class="search-filter">
+                                            {% bootstrap_field form.result_types show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#spatial_entity-->
+                                    </div>
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'publisher' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Publisher</div>
+                                            </div>
+                                            <div class="search-filter">
+                                            {% bootstrap_field form.publisher show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#publisher-->
+                                    </div>
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'spatial_entity' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Spatial Entity</div>
+                                            </div>
+                                            <ul class="fill">
+                                                <li>
+                                                    {% bootstrap_field form.spatial_entity %}
+                                                </li>
+                                            </ul>
+                                        </div><!--/.search-group#spatial_entity-->
+                                    </div>
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'access_level' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Access Level</div>
+                                            </div>
+                                            <div class="search-filter">
+                                            {% bootstrap_field form.access_level show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#access-->
+                                    </div><!--/.object-panel-inside-->
+                                    {% comment %}
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'license' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">License</div>
+                                            </div>
+                                            <div class="search-filter">
+                                            {% bootstrap_field form.license show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#access-->
+                                    </div><!--/.object-panel-inside-->
+                                    {% endcomment %}
+                                    {% comment %}
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'funded_by' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Funded By</div>
+                                            </div>
+                                            <div class="search-filter">
+                                                {% bootstrap_field form.funded_by show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#access-->
+                                    </div><!--/.object-panel-inside-->
+                                    {% endcomment %}
+                                    {% comment %}
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'domain' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Domain</div>
+                                            </div>
+                                            <div class="search-filter">
+                                                {% bootstrap_field form.domain show_label=False %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endcomment %}
+                                    {% comment %}
+                                    <div class="object-panel-inside">
+                                        <div class="search-group {% if 'title' in form.changed_data%}opened{%endif%}">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Title</div>
+                                            </div>
+                                            <div class="search-filter">
+                                                {% bootstrap_field form.title show_label=False %}
+                                            </div>
+                                        </div><!--/.search-group#access-->
+                                    </div><!--/.object-panel-inside-->
+                                    {% endcomment %}
+                                    {% comment %}
+                                    {% if facets.fields.temporal_start %}
+                                    <div class="object-panel-inside">
+                                        <div class="search-group opened">
+                                            <div class="search-group-title">
+                                                <div class="search-group-icons">
+                                                    <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+                                                    <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="search-group-title-text">Temporal Start</div>
+                                            </div>
+                                            <ul>
+                                                {% for date, ms, count in facets.fields.temporal_start %}
+                                                <li>
+                                                    <a href="{{ request.get_full_path }}&amp;selected_facets=temporal_start:{{ ms }}">{{ date|date:"M d Y" }}</a> ({{ count }})
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div><!--/.search-group#temporal_start-->
+                                    </div>
+                                    {% endif %}
+                                    {% endcomment %}
+                                </div><!-- /.object-panel.filter-panel -->
+                                {% else %}
+                                <div class="object-panel filter-panel" data-color="blue">
+                                    <div class="object-panel-inside">
+                                        <p><em>No results to filter</em></p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div><!-- /.widget-content -->
+                        </div><!-- /.widget-inside -->
+                    </div><!-- /.widget -->
+                </div><!-- /.col-sm-4.filter-groups -->
+            
+                <div class="col-sm-8 col-md-8">
+                    {% if page_obj|length %}
+                    <div class="widget" data-widget="search_results">
+                        <div class="widget-inside">
+                            <h2 class="widget-title">Results</h2>
+                            <div class="widget-content">
+                                <div class="row sort-by-wrapper">
+                                    <div class="col-sm-6">
+                                        <span>{{paginator.count}} results found, </span>
+                                        <span>displaying {{page_obj.start_index}}-{{page_obj.end_index}}</span>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <span>Sort By:</span> {{form.sort_by}}
+                                    </div>
+                                </div>
+                            
+                                {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+                            
+                                <div class="object-panel">
+                                    <div class="search-results">
+                                        {% for result in object_list %}
+                                        {{ result.rendered|safe }}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            
+                                {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+                            </div><!-- /.widget-content -->
+                        </div><!-- /.widget-inside -->
+                    </div><!-- /.widget -->
+                    {% else %}
+                        <div class="widget" data-widget="search_results">
+                            <div class="widget-inside">
+                                <h2 class="widget-title">Results</h2>
+                                <div class="widget-content">
+                                    <div class="no-search-results-text">
+                                        <p>No matching results for "<em>{{form.data.q}}</em>"</p>
+                                    </div>
+                                    {% static_placeholder 'no search results' %}
+                                </div><!-- /.widget-content -->
+                            </div><!-- /.widget-inside -->
+                        </div><!-- /.widget -->
+                    {% endif %}
+                </div><!-- /.col-sm-8 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </form>
+</div><!-- /.search_results_wrapper -->
+{% endif %}
+{% endblock %}

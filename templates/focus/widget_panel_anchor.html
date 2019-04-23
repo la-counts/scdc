@@ -1,0 +1,15 @@
+<div class="widget-panel-wrapper widget-panel-anchor-wrapper" class="text-{{widget.alignment}}">
+    <div class="widget-panel-image-wrapper" style="background-image: url('{{widget.image.url}}');">
+        <a class="no-hover widget-panel-anchor-link soft-bg-color" href="{{widget.link}}">
+            <div class="widget-panel-anchor-text">
+                {% if widget.icon %}
+                <div class="widget-panel-icon text-center">
+                    <img src="{{widget.icon.url}}">
+                </div>
+                {% endif %}
+                <div class="widget-panel-anchor-text-inside hover-color">{{widget.body|safe}}</div>
+            </div>
+            <img src="{{widget.image.url}}" class="spacer">
+        </a>
+    </div>
+</div>

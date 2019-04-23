@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n data_commons comments %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="profile-page-wrapper" class="account-page-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Comments</h1>
+            {% for comment in comments %}
+            <div class="view-comment">
+                <a href="{% get_comment_permalink comment %}">{{comment}}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="search-result" data-type="dataset">
+  <div class="search-result-type-icon">
+    <i class="fa fa-hashtag" aria-hidden="true"></i>
+  </div>
+  <div class="search-result-content">
+    <div class="search-result-title"><a href="{{object.get_absolute_url}}">{{object.title}}</a></div>
+    <div class="search-result-description">
+      <a href="{{object.get_absolute_url}}">{{object.body|striptags|truncatewords:30}}</a>
+    </div>
+    <div class="search-result-tags  tags-wrapper">
+      {% for concept in object.concepts.all %}
+        <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+      {% empty %}
+        <span class="no-hover tag tag-uncagetorized">Uncategorized</span>
+      {% endfor %}
+    </div>
+  </div><!--/.search-result-content-->
+</div><!--/.search-result-->

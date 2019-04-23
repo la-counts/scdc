@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n imagekit django_bootstrap_breadcrumbs data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Focus Areas" "focus:index" %}
+{% endblock %}
+
+{% block title %}Focus Areas{% endblock title %}
+
+{% block body_class %}focus-areas{% endblock %}
+
+
+{% block content %}
+<h2>Focus Areas</h2>
+
+<div class="row">
+{% for page in pages %}
+<div class="col-md-3">
+  <div class="object-box">
+    <div class="img-container">
+      <div class="story-concepts">{{page.concepts.all.0}}</div>
+      <a href="{{page.get_absolute_url}}" class="story-image-link">
+        {% if page.link_image %}
+        {% imgbox page.link_image '300x300' %}
+        <!--{% thumbnail '800x600' page.link_image -- class="story-img" %}-->
+        {% endif %}
+      </a>
+    </div>
+    <div class="card-content">
+      <a href="{{page.get_absolute_url}}">
+        <h4>{{page}}</h4>
+        <p>{{page.body|striptags|truncatewords:10}}</p>
+      </a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+
+<div class="row">
+  <div class="col-md-4 object-widget" data-color="blue">
+    <h3>Recent Stories</h3>
+    {% recent_stories %}
+  </div>
+  <div class="col-md-4 object-widget" data-color="lightblue">
+    <h3>New</h3>
+    {% recent_datasets %}
+  </div>
+  <div class="col-md-4 object-widget" data-color="grey">
+    <h3>Recently Updated</h3>
+    {% updated_datasets %}
+  </div>
+</div>
+{% endblock %}

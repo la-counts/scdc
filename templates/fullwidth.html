@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load cms_tags django_bootstrap_breadcrumbs %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block body_class %}{{ block.super }} fullwidth{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% page_attribute "page_title" as title %}
+    {% if title != 'home' %}
+        {% breadcrumb title "" %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+	{% placeholder "content" %}
+{% endblock content %}

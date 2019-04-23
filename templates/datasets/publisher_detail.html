@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs comments data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Publishers" "datasets:index" %}
+  {% breadcrumb publisher.name publisher.get_absolute_url %}
+{% endblock %}
+
+{% block title %}{{ publisher.name }}{% endblock title %}
+
+{% block body_class %}publisher-detail{% endblock %}
+
+{% block content %}
+<h2>{{publisher.name}}</h2>
+
+<p>{{publisher.description}}</p>
+<p>{{publisher.body|safe}}</p>
+
+{% if publisher.parent %}
+<aside>
+  <h3>Parent</h3>
+  <a href="{{publisher.parent.get_absolute_url}}">{{publisher.parent}}</a>
+</aside>
+{% endif %}
+
+{% with publisher.get_children as children %}
+{% if children %}
+<aside>
+  <h3>Subpublishers</h3>
+  <ul>
+  {% for child in children %}
+    <li><a href="{{child.get_absolute_url}}">{{child}}</a></li>
+  {% endfor %}
+  </ul>
+</aside>
+{% endif %}
+{% endwith %}
+
+<aside class="object-widget" data-color="blue">
+  <h3><a href="{% url 'datasets:publisher_datasets' publisher.slug %}">Datasets</a></h3>
+  <ul class="object-list">
+{% for dataset in publisher.catalogrecord_set.all|slice:":5" %}
+  <li>{% dataset_headline dataset %}</li>
+{% endfor %}
+  </ul>
+
+<a class="btn btn-default" href="/catalog/search/?publisher={{publisher.pk}}&sort_by=title_s&result_types=CatalogRecord&no_q=1">Show All</a>
+</aside>
+
+<aside class="object-widget" data-color="blue">
+  <h3><a href="{% url 'datasets:publisher_stories' publisher.slug %}">Linked Stories</a></h3>
+  <ul class="object-list">
+{% for story in publisher.story_set.all|slice:":5" %}
+  <li>{% story_headline story %}</li>
+{% endfor %}
+</ul>
+
+<a class="btn btn-default" href="/catalog/search/?publisher={{publisher.pk}}&sort_by=title_s&result_types=Story&no_q=1">Show All</a>
+</aside>
+
+
+{% endblock %}

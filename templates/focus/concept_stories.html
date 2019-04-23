@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs bootstrap_pagination data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Concepts" "focus:concept_index" %}
+  {% breadcrumb concept concept.get_absolute_url %}
+  {% breadcrumb "Stories" "focus:concept_stories" concept.url_path %}
+{% endblock %}
+
+{% block title %}{{ concept }}{% endblock title %}
+
+{% block body_class %}concept-stories{% endblock %}
+
+
+{% block content %}
+<h2>Stories</h2>
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+
+{% for story in object_list %}
+    <div class="search_result">
+        {% story_headline story %}
+    </div>
+{% endfor %}
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+{% endblock %}

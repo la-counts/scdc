@@ -1,0 +1,17 @@
+{% load data_commons %}
+<div class="widget widget-group" data-widget="datasets">
+    <div class="widget-inside">
+      <div class="widget-content">
+        <div class="widget-dataset">
+          <div class="widget-dataset-title">Dataset of the day</div>
+          <div class="widget-dataset-content">
+            <ul>
+            {% for ds in datasets %}
+                {% dataset_list_item ds %}
+            {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

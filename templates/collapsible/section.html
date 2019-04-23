@@ -1,0 +1,15 @@
+{% load i18n bootstrap3 static cms_tags %}
+<div class="collapsible-section">
+    <div class="collapsible-title">
+        <div class="collapsible-icon">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-minus" aria-hidden="true"></i>
+        </div>
+        <span class="collapsible-title-text">{{widget.title}}</span>
+    </div>
+    <div class="collapsible-text">
+        <div class="collapsible-text-inside">
+            {{widget.body|safe}}
+        </div>
+    </div>
+</div>

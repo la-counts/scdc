@@ -1,0 +1,33 @@
+<div class="search-result" data-type="dataset">
+  <div class="search-result-type-icon">
+    <i class="fa fa-book" aria-hidden="true"></i>
+  </div>
+  <div class="search-result-content">
+    <div class="search-result-title"><a href="{{object.get_absolute_url}}">{{object.title}}</a></div>
+    <div class="search-result-subtitle">
+      <a href="{{object.get_absolute_url}}">{{object.subheader|striptags}}</a>
+    </div>
+    <div class="search-result-description">
+      <a href="{{object.get_absolute_url}}">{{object.body|striptags|truncatewords:30}}</a>
+      <a href="{{object.get_absolute_url}}" class="read-more">
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="search-result-tags">
+      {% for concept in object.concepts.all %}
+        <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+      {% empty %}
+        <span class="no-hover tag tag-uncategorized">Uncategorized</span>
+      {% endfor %}
+    </div>
+    <div class="search-result-meta">
+      <ul>
+        <li>Published: {{object.published_at|date:"M d Y"}}</li>
+        <li>{{object.authored_by}}</li>
+        {% if object.organization %}
+        <li><a href="{{object.organization.get_absolute_url}}">{{object.organization}}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div><!--/.search-result-content-->
+</div><!--/.search-result-->

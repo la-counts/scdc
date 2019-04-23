@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block title %}LA Counts Registration | LA Counts{% endblock title %}
+{% block body_class %}accounts{% endblock %}
+{% block content %}
+<div id="login-page-wrapper" class="account-page-wrapper">
+  <div class="widget-search" data-widget="widget-search">
+    <div class="widget-inside">
+        <div class="widget-content">
+             <h2 class="widget-title">LA Counts Registration</h2>
+             <div class="widget-content">
+                 <form method="GET" action="/catalog/search/" class="primary searchform">
+                     <button type="submit" class="search-icon">
+                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                     </button>
+                     <input type="text" class="search-input" name="q" placeholder="Search, ex.: early childhood education" required="required"/>
+                 </form>
+             </div>
+        </div>
+    </div>
+  </div>
+  <div class="row pad-bottom-25">
+    <div class="col-sm-12">
+      <div class="widget" data-widget="widget-title">
+          <div class="widget-inside">
+              <h1 class="widget-title">Account registration</h1>
+          </div>
+      </div>
+      <p>Join LA Counts in building a data-focused community of practice for Los Angeles County. When you register you’ll be able to add comments and save datasets, stories and searches. Down the road, you’ll be able to connect with other registered members.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <p class="italic lighter">We respect your privacy and will never sell or rent your information.</p>
+    </div>
+    <div class="col-sm-8">
+      <form method="post" action="." class="registration_form">
+        {% csrf_token %}
+        {{ form.media }}
+        {% bootstrap_form form %}
+        <p class="italic lighter">By creating an account, you agree to LA Counts’ <a href="/terms">Terms of Use</a> and
+        <a href="/privacy">Privacy Policy</a>.</p>
+        {% buttons %}
+        <div class="row pad-top-25">
+          <div class="col-sm-offset-8 col-sm-4 text-right">
+            <button type="submit" class="large-button button-block text-center">
+              Register
+            </button>
+          </div>
+        </div>
+        {% endbuttons %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

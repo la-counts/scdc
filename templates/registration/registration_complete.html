@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Register | {{ site.name }}{% endblock title %}
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="profile-page-wrapper" class="account-page-wrapper">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1>Register</h1>
+            <p>{% trans "Your LA Counts registration is nearly complete. To activate your account please check your email and click on the activation link provided. If you did not receive an account activation email, please check your junk or spam folder." %}</p>
+            <p>
+                <a href="/">{% trans "Click here to return to the homepage" %}</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

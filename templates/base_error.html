@@ -1,0 +1,79 @@
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs static cms_tags menu_tags sekizai_tags cache %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <title>{% block title %}{{ site.name }}{% endblock title %}</title>
+        <link href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        
+        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+        <link rel="icon" href="{% static "images/favicon.ico" %}" type="image/x-icon">
+        
+        {% render_block "css" %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery=1 %}
+        
+        {#<script src="//unpkg.com/vue/dist/vue.js"></script>#}
+        <script src="//unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="//use.fontawesome.com/330eadfa9d.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="{% static "slick/slick.css" %}"/>
+        <script type="text/javascript" src="{% static "slick/slick.min.js" %}"></script>
+
+        <script src="{% static "scripts.js" %}"></script>
+        <script src="{% static "components/build.js" %}"></script>
+        <link rel="stylesheet" href="{% static "circle.css" %}" />
+        <link rel="stylesheet" href="{% static "style.css" %}" />
+</head>
+
+<body class="{% if user.is_authenticated %}logged-in{% else %}not-logged-in{% endif %} {% block body_class %}{% if current_page %}{{current_page.title_set.all.0.slug}}{% endif %}{% endblock %}">
+        <div id="container">
+                {% block breadcrumbs %}
+                        {% clear_breadcrumbs %}
+                        {% breadcrumb "Home" "/" %}
+                {% endblock %}
+                
+                {% block modal %}
+                {% static_placeholder 'modal' %}
+                {% endblock %}
+        
+                <div id="top">
+                    {% cms_toolbar %}
+                    {% show_menu 0 100 100 100 %}
+                    {% include "partials/messages.html" %}
+                </div>
+                <div class="wrapper">
+                {% block header %}
+                {% if current_page.is_home %}
+                <div id="header-image">
+                        <div class="header-body">
+                                <div class="header-message">
+                                    {% static_placeholder 'header message' %}
+                                </div>
+                                <form method="GET" action="/catalog/search/" class="primary searchform">
+                                        <button type="submit" class="search-icon">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                        <input type="text" class="search-input" name="q" placeholder="Enter Keyword" required="required"/>
+                                </form>
+                        </div>
+                </div>
+                {% endif %}
+                {% endblock %}
+                
+                {% static_placeholder 'content top' %}
+                {% block content %}{% endblock content %}
+                {% static_placeholder 'content bottom' %}
+                </div>
+                {% block footerscripts %}{% endblock footerscripts%}
+                {% render_block "js" %}
+                
+                <div id="footer">
+                        <div class="wrapper">
+                        {% static_placeholder 'footer' %}
+                        </div>
+                </div>
+        </div>
+</body>
+</html>

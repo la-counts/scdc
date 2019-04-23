@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Data Library" "datasets:index" %}
+  {% breadcrumb "Suggest" "datasets:suggest" %}
+{% endblock %}
+
+{% block title %}Suggest Datast{% endblock title %}
+
+{% block body_class %}suggest-dataset{% endblock %}
+
+{% block content %}
+<form method="POST" action=".">
+  {{ form.media }}
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
+</form>
+
+{% endblock %}

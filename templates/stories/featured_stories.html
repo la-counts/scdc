@@ -1,0 +1,47 @@
+{% load data_commons static cms_tags %}
+<div class="featured_stories_wrapper">
+    <div class="widget" data-widget="featured_story">
+        <div class="widget-inside">
+            <h2 class="widget-title">Data Stories</h2>
+            <div class="widget-content">
+                <div class="row">
+            {% for story in stories %}
+                {% if display_cards %}        
+                    {% if forloop.counter == 1 and current_page.is_home %}
+                        </div>
+                        <div class="row widget-featured-story-large-wrapper">
+                        {% story_card story 12 %}
+                        </div>
+                        <div class="row">
+                    {% else %}
+                        {% story_card story 4 %}
+                        {% if forloop.counter|add:"-1"|divisibleby:3 %}
+                            </div>
+                            <div class="row">
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% story_headline story %}
+                {% endif %}
+            {% endfor %}
+                    {% if current_page.is_home %}
+                    <div class="col-sm-4 widget-featured-story widget-featured-story-textonly">
+                      <div class="widget-featured-story-inside">
+                        <a href="/stories">
+                          <div class="widget-featured-story-image soft-bg-color">
+                            <div class="widget-featured-story-image-text">
+                              <div class="widget-featured-story-image-text-inside">
+                                Explore<br>more stories<br>about LA <img src="{% static "images/link-arrow-white.svg" %}" class="svg-right-arrow"></i>
+                              </div>
+                            </div>
+                            <img src="/static/images/widget-story-spacer.png">
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

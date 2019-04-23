@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Focus Areas" "focus:index" %}
+  {% breadcrumb "Search" "focus:search" %}
+{% endblock %}
+
+{% block body_class %}search{% endblock %}
+
+
+{% block content %}
+<form method="GET" action=".">
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Search
+    </button>
+  {% endbuttons %}
+</form>
+<p>{{object_list|length}}</p>
+{{page_obj}}
+
+{% for result in object_list %}
+    <div class="search_result">
+        {{ result.rendered|safe }}
+    </div>
+{% endfor %}
+{% endblock %}

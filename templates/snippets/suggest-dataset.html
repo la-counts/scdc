@@ -1,0 +1,14 @@
+{% load i18n data_commons cms_tags %}
+<div class="suggest-dataset-wrapper">
+    <div class="row">
+        <div class="col-sm-9">
+            {{ html }}
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'datasets:submit_datasources' %}" class="large-button">
+                <span class="button-upper">Suggest additions</span>
+                <span class="button-lower">to LA Counts</span>
+            </a>
+        </div>
+    </div>
+</div>

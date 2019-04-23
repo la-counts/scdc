@@ -1,0 +1,790 @@
+{% extends "base.html" %}
+{% load i18n data_commons django_bootstrap_breadcrumbs %}
+
+{% block body_class %}styleguide{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Styleguide" "/styleguide" %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <h3>Cards/Panels</h3>
+    <div class="blocktext">
+      <p>Shadow: Black, opacity 20%,</p>
+      <p>x offset: 1px, y offset 1px, blur 12px</p>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <h3>Sidebar:</h3>
+  </div>  
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="object-panel" data-color="teal">
+      <h2>Tags</h2>
+      <div class="panel-content">
+        <textarea placeholder="Placeholder Text here..."></textarea>
+      </div>
+    </div>
+    
+    <div class="object-panel">
+      <div class="object-panel-inside">
+        <h2>Comments</h2>
+        <div class="panel-content">
+          <div class="comment">
+            <div class="comment-image">
+              <img src="//via.placeholder.com/60x60">
+            </div>
+            <div class="comment-area">
+              <div class="comment-title" title="Comment Headline goes here. If it's too long, it will ellipsis...">Comment Headline goes here. If it's too long, it will ellipsis...</div>
+              <div class="comment-author">Comment Author <span class="verified"><i class="fa fa-check" aria-hidden="true"></i></span></div>
+              <div class="comment-text">
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas.
+              </div>
+              <div class="comment-meta">
+                <ul class="comment-meta-icons">
+                  <li class="comment-downvote"><i class="fa fa-chevron-down" aria-hidden="true"></i></li>
+                  <li class="comment-upvote"><i class="fa fa-chevron-up" aria-hidden="true"></i></li>
+                  <li class="comment-time">2h <i class="fa fa-clock-o" aria-hidden="true"></i></li>
+                  <li class="comment-dataset">Data Set Name</li>
+                  <li class="comment-flag"><i class="fa fa-flag" aria-hidden="true"></i></li>
+                </ul>
+              </div>
+            </div>
+          </div><!--/.comment-->
+        </div>
+      </div>
+      <div class="object-panel-inside">
+        <h2>Searches</h2>
+        <ul class="panel-list-with-icons">
+          <li>
+            <i class="fa fa-crosshairs" aria-hidden="true"></i><a href="#mentally-ill-homeless">Mentally Ill Homeless</a>
+          </li>
+          <li>
+            <i class="fa fa-crosshairs" aria-hidden="true"></i><a href="#search-2">Search 2</a>
+          </li>
+          <li>
+            <i class="fa fa-crosshairs" aria-hidden="true"></i><a href="#search-3">Search 3</a>
+          </li>
+        </ul>
+      </div>
+      <div class="object-panel-inside">
+        <h2>Stories</h2>
+        <ul class="panel-list-with-icons">
+          <li>
+            <i class="fa fa-book" aria-hidden="true"></i><a href="#story-title-1">Story Title 1</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Topic Area</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa fa-book" aria-hidden="true"></i><a href="#story-title-2">Story Title 2</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Topic Area</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa fa-book" aria-hidden="true"></i><a href="#story-title-3">Story Title 3</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Topic Area</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="object-panel-inside">
+        <h2>Data Sets</h2>
+        <ul class="panel-list-with-icons">
+          <li>
+            <i class="fa fa-list-alt" aria-hidden="true"></i><a href="#data-set-1">Data Set Name 1</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Source</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa fa-list-alt" aria-hidden="true"></i><a href="#data-set-2">Data Set Name 2</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Source</span>
+            </div>
+          </li>
+          <li>
+            <i class="fa fa-list-alt" aria-hidden="true"></i><a href="#data-set-3">Data Set Name 3</a>
+            <div class="panel-list-item-meta">
+              <span>Date Posted | Source</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-sm-6 col-md-3">
+        <div class="object-widget" data-color="blue">
+            <h2>Featured Stories</h2>
+            <ul class="object-list">
+                <li>
+                    <div class="object-name">Story Name</div>
+                    <div class="object-meta">POST DATE | FOCUS AREA</div>
+                </li>
+                <li>
+                    <div class="object-name">Story Name</div>
+                    <div class="object-meta">POST DATE | FOCUS AREA</div>
+                </li>
+                <li>
+                    <div class="object-name">Story Name</div>
+                    <div class="object-meta">POST DATE | FOCUS AREA</div>
+                </li>
+                <li>
+                    <div class="object-name">Story Name</div>
+                    <div class="object-meta">POST DATE | FOCUS AREA</div>
+                </li>
+                <li>
+                    <div class="object-name">Story Name</div>
+                    <div class="object-meta">POST DATE | FOCUS AREA</div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="object-widget" data-color="lightblue">
+            <h2>New Data Sets</h2>
+            <ul class="object-list">
+                <li>
+                    <div class="object-name">Data Set Name</div>
+                    <div class="object-meta">UPDATED DATE | SOURCE</div>
+                </li>
+                <li>
+                    <div class="object-name">Data Set Name</div>
+                    <div class="object-meta">UPDATED DATE | SOURCE</div>
+                </li>
+                <li>
+                    <div class="object-name">Data Set Name</div>
+                    <div class="object-meta">UPDATED DATE | SOURCE</div>
+                </li>
+                <li>
+                    <div class="object-name">Data Set Name</div>
+                    <div class="object-meta">UPDATED DATE | SOURCE</div>
+                </li>
+                <li>
+                    <div class="object-name">Data Set Name</div>
+                    <div class="object-meta">UPDATED DATE | SOURCE</div>
+                </li>
+            </ul>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="object-widget" data-color="grey">
+          <h2>Recently Updated</h2>
+          <ul class="object-list">
+              <li>
+                  <div class="object-name">Data Set Name</div>
+                  <div class="object-meta">UPDATED DATE | SOURCE</div>
+              </li>
+              <li>
+                  <div class="object-name">Data Set Name</div>
+                  <div class="object-meta">UPDATED DATE | SOURCE</div>
+              </li>
+              <li>
+                  <div class="object-name">Data Set Name</div>
+                  <div class="object-meta">UPDATED DATE | SOURCE</div>
+              </li>
+              <li>
+                  <div class="object-name">Data Set Name</div>
+                  <div class="object-meta">UPDATED DATE | SOURCE</div>
+              </li>
+              <li>
+                  <div class="object-name">Data Set Name</div>
+                  <div class="object-meta">UPDATED DATE | SOURCE</div>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="object-widget widget-box" data-color="teal">
+          <h2>Tags</h2>
+          <div class="widget-content">
+            Consectetur, Adipisicing, Elit do eiusmod, Tempor incididunt, Labore et dolore, Magna, Aliqua,
+            Enim ad minim, Veniam quis nostrud, Exercitation ullamco, Laboris nisi ut aliquip, Commodo consequat
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Buttons:</h3>
+        <div class="buttons">
+          <div>
+            <div class="example-blue-background">
+              <button class="button featured">Search</button>
+            </div>
+          </div>
+          <div>
+            <button class="button style-1">Style 1</button>
+          </div>
+          <div>
+            <button class="button style-2">Style 2</button>
+          </div>
+          <div>
+            <button class="button style-3">Style 3</button>
+          </div>
+          <div>
+            <button class="button style-4">Style 4</button>
+          </div>
+          <div>
+            <div class="save-story">
+              <a href="#unsaved" class="unsaved">
+                <i class="fa fa-star-o" aria-hidden="true"></i> save
+              </a>  
+            </div>
+            <div class="save-story">
+              <a href="#save" class="saved">
+                <i class="fa fa-star" aria-hidden="true"></i> save
+              </a>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+    <div class="row">
+      <div class="col-xs-12">
+      <div class="styleguide-box">
+          <h3>Story Panels</h3>
+          <div class="row stories-content">
+            {% for i in '1234' %}
+            <div class="story-card col-md-3 col-sm-6 col-xs-12">
+              <div class="story-card-inside object-box">
+                <div class="img-container">
+                  <div class="story-concepts">Focus Area</div>
+                  <a href="#story-card" class="story-image-link">
+                    <img class="story-image" src="//via.placeholder.com/165x165">
+                  </a>
+                </div>
+                <div class="card-content">
+                  <a href="#story-card">
+                    <h4>Story {{i}}<br>Line 2</h4>
+                    <p>This is subheader text! Some content should...</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+  </div>
+</div>
+<div class="row advanced-search-wrapper">
+  <div class="col-md-4">
+    <h3>Topic Categories</h3>
+    <div class="object-panel" data-color="blue">
+      <div class="object-panel-inside">
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Healthcare</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="healthcare_topic_{{x}}">
+                <input type="checkbox" id="healthcare_topic_{{x}}">
+                Topic {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#healthcare-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Homelessness</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="homelessness_topic_{{x}}">
+                <input type="checkbox" id="homelessness_topic_{{x}}">
+                Topic {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#homelessness-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Public Safety</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="publicsafety_topic_{{x}}">
+                <input type="checkbox" id="publicsafety_topic_{{x}}">
+                Topic {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#publicsafety-->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>Demographics</h3>
+    <div class="object-panel" data-color="lightblue">
+      <div class="object-panel-inside">
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Age</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="age_range_{{x}}">
+                <input type="checkbox" id="age_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#age-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Ethnicity</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="ethnicity_range_{{x}}">
+                <input type="checkbox" id="ethnicity_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#ethnicity-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Education Attainment</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="education_range_{{x}}">
+                <input type="checkbox" id="education_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#education-->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h3>Geo Area</h3>
+    <div class="object-panel" data-color="grey">
+      <div class="object-panel-inside">
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Publisher</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="publisher_{{x}}">
+                <input type="checkbox" id="publisher_{{x}}">
+                Publisher {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#publisher-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Access Level</div>
+          </div>
+          <ul>
+            <li>
+              <label for="access_public">
+                <input type="checkbox" checked="checked" id="access_public">
+                Public
+              </label>
+            </li>
+            <li>
+              <label for="access_restricted">
+                <input type="checkbox" id="access_restricted">
+                Restricted Public
+              </label>
+            </li>
+            <li>
+              <label for="access_nonpublic">
+                <input type="checkbox" id="access_nonpublic">
+                Non-Public
+              </label>
+            </li>
+          </ul>
+        </div><!--/.search-group#access-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Conforms to</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="conforms_{{x}}">
+                <input type="checkbox" id="conforms_{{x}}">
+                Conforms to {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#conforms_to-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Language</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="language_{{x}}">
+                <input type="checkbox" id="language_{{x}}">
+                Language {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#language-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Funded By</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="funded_{{x}}">
+                <input type="checkbox" id="funded_{{x}}">
+                Funded by {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#funded-->
+      </div><!--/.object-panel-inside-->
+    </div>
+  </div>
+</div><!--/.row-->
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <br>
+    <button class="button style-4">Search</button>
+  </div>
+</div><!--/.row-->
+
+<div class="row" id="styleguide_search_results_example">
+  <div class="col-sm-3 col-md-2 col-top-offset-20">
+    <h3>Filter</h3>
+    <div class="object-panel no-shadow" data-color="blue">
+      <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Age</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_age_range_{{x}}">
+                <input type="checkbox" id="filter_age_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#age-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Ethnicity</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_ethnicity_range_{{x}}">
+                <input type="checkbox" id="filter_ethnicity_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#ethnicity-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Education Attainment</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_education_range_{{x}}">
+                <input type="checkbox" id="filter_education_range_{{x}}">
+                Range {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#education-->
+    </div><!--/.object-panel-->
+    <h3>Geo Filters</h3>
+    <div class="object-panel no-shadow" data-color="blue">
+      <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Publisher</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_publisher_{{x}}">
+                <input type="checkbox" id="filter_publisher_{{x}}">
+                Publisher {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#publisher-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Access Level</div>
+          </div>
+          <ul>
+            <li>
+              <label for="filter_access_public">
+                <input type="checkbox" checked="checked" id="filter_access_public">
+                Public
+              </label>
+            </li>
+            <li>
+              <label for="filter_access_restricted">
+                <input type="checkbox" id="filter_access_restricted">
+                Restricted Public
+              </label>
+            </li>
+            <li>
+              <label for="filter_access_nonpublic">
+                <input type="checkbox" id="filter_access_nonpublic">
+                Non-Public
+              </label>
+            </li>
+          </ul>
+        </div><!--/.search-group#access-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Conforms to</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_conforms_{{x}}">
+                <input type="checkbox" id="filter_conforms_{{x}}">
+                Conforms to {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#conforms_to-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Language</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_language_{{x}}">
+                <input type="checkbox" id="filter_language_{{x}}">
+                Language {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#language-->
+        <div class="search-group">
+          <div class="search-group-title">
+            <div class="search-group-icons">
+              <i class="closed fa fa-plus-square-o" aria-hidden="true"></i>
+              <i class="open fa fa-minus-square-o" aria-hidden="true"></i>
+            </div>
+            <div class="search-group-title-text">Funded By</div>
+          </div>
+          <ul>
+            {% for x in '12345' %}
+            <li>
+              <label for="filter_funded_{{x}}">
+                <input type="checkbox" id="filter_funded_{{x}}">
+                Funded by {{x}}
+              </label>
+            </li>
+            {% endfor %}
+          </ul>
+        </div><!--/.search-group#funded-->
+    </div>
+  </div>
+  <div class="col-sm-9 col-md-10">
+    <div class="row">
+      <div class="col-xs-6">
+        <h2 class="search-results-title">Results</h2>
+      </div>
+      <div class="col-xs-6 text-right">
+        <select class="search-sort-by">
+          <option>Sort By Ascending</option>
+          <option>Sort By Descending</option>
+          <option>Sort By Date</option>
+          <option>Sort By Percentage</option>
+        </select>
+      </div>
+    </div>
+    <div class="object-panel">
+      <div class="search-results">
+        {% for x in "1234" %}
+        <div class="search-result" data-type="dataset">
+          <div class="search-result-type-icon">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+          </div>
+          <div class="search-result-content">
+            <div class="search-result-title">21st Century High School After School</div>
+            <div class="search-result-subtitle">
+              <p>21st Century High School After School Safety and Enrichment for Teens (ASSETs)</p>
+              <p>Program Data Collection (ID #637)</p>
+            </div>
+            <div class="search-result-description">
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+              <a href="#read-more" class="read-more">
+                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="search-result-tags">
+              <i class="fa fa-tag" aria-hidden="true"></i>
+              <span class="label label-default">ASSETs</span>
+              <span class="label label-default">High School</span>
+              <span class="label label-default">Enrichment for Teens</span>
+            </div>
+            <div class="search-result-meta">
+              <ul>
+                <li>Posted: 4.12.17</li>
+                <li>Source</li>
+                <li>Geo Area</li>
+                <li>20xx - 20xx</li>
+                <li>File Types: .csv .xml</li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="progress-wrapper" data-size="small">
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+                      <span class="sr-only">80% Complete</span>
+                    </div>
+                  </div>
+                  <div class="percentage">
+                    <span>80</span>% Complete <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div><!--/.row-->
+          </div><!--/.search-result-content-->
+        </div><!--/.search-result-->
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div><!--/.row-->
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="progress-wrapper">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">
+          <span class="sr-only">80% Complete</span>
+        </div>
+      </div>
+      <div class="percentage">
+        <span>80</span>% Complete <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <h3>Progress Bar Changer (Demo Only)</h3>
+    <input type="range" class="demo-progress-slider" value="80" min="0" max="100">
+  </div>
+</div><!--/.row-->
+
+{% endblock %}

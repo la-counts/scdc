@@ -1,0 +1,31 @@
+<div class="search-result" data-type="dataset">
+  <div class="search-result-type-icon">
+    <i class="fa fa-list-alt" aria-hidden="true"></i>
+  </div>
+  <div class="search-result-content">
+    <div class="search-result-title"><a href="{{object.get_absolute_url}}">{{object.title}}</a></div>
+    <div class="search-result-description">
+      {{object.description|striptags|truncatewords:30}}
+    </div>
+    <div class="search-result-tags tags-wrapper">
+      {% for concept in object.concepts.all %}
+        <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+      {% empty %}
+        <span class="no-hover tag tag-uncategorized">Uncategorized</span>
+      {% endfor %}
+    </div>
+    <div class="search-result-meta">
+      <ul>
+      {% if object.temporal %}
+        <li>{{object.temporal|default:""}}</li>
+      {% endif %}
+      {% if object.publisher %}
+        <li>{{object.publisher|default:""}}</li>
+      {% endif %}
+      {% if object.access_level %}
+        <li>{{object.access_level|default:""}}</li>
+      {% endif %}
+      </ul>
+    </div>
+  </div><!--/.search-result-content-->
+</div><!--/.search-result-->

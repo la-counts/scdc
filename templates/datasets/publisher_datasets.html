@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs bootstrap_pagination data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Publishers" "datasets:index" %}
+  {% breadcrumb publisher publisher.get_absolute_url %}
+  {% breadcrumb "Datasets" "datasets:publisher_datasets" publisher.slug %}
+{% endblock %}
+
+{% block title %}{{ publisher.name }}{% endblock title %}
+
+{% block body_class %}publisher-datasets{% endblock %}
+
+{% block content %}
+<h2>Published Datasets</h2>
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+
+{% for cr in object_list %}
+    <div class="search_result">
+        {% dataset_headline cr %}
+    </div>
+{% endfor %}
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+{% endblock %}

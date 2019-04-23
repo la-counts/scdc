@@ -1,0 +1,22 @@
+{% load data_commons %}
+<div class="featured_stories_wrapper stories_list">
+    <div class="widget" data-widget="stories">
+        <div class="widget-inside">
+            <div class="widget-content">
+                <div class="row">
+            {% for story in stories %}
+                {% if display_cards %}        
+                    {% if forloop.counter|add:"-1"|divisibleby:4 %}
+                        </div>
+                        <div class="row">
+                    {% endif %}
+                    {% story_card story 4 %}
+                {% else %}
+                    {% story_headline story %}
+                {% endif %}
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

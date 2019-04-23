@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+{% load cms_tags i18n imagekit bootstrap3 django_bootstrap_breadcrumbs comments comments_xtd data_commons snippet_tags %}
+
+{% block title %}{{ story.title }}{% endblock title %}
+
+{% block body_class %}story-detail{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stories" "stories:index" %}
+  {% breadcrumb story.title "story:detail" story.pk %}
+{% endblock %}
+
+{% block footerscripts %}
+<script>
+  window.comments_props = {% get_commentbox_props for story %};
+  {% if user.is_authenticated %}
+  window.comments_props_override = {
+    allow_comments: true,
+    allow_feedback: true,
+    show_feedback: true,
+    allow_flagging: true,
+    poll_interval: 5000, // In milliseconds.
+  };
+  {% else %}
+  window.comments_props_override = {
+    allow_comments: false,
+    allow_feedback: false,
+    show_feedback: true,
+    allow_flagging: false,
+    poll_interval: 60000, // In milliseconds.
+  };
+  {% endif %}
+  pushRecentView('story', {
+    title: "{{story.title}}",
+    url: window.location.href,
+  });
+</script>
+<script type="text/javascript"
+        src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'django_comments_xtd/js/vendor-2.0.3.js' %}"></script>
+<script src="{% static 'django_comments_xtd/js/plugin-2.0.3.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'unitegallery/js/unitegallery.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'unitegallery/css/unite-gallery.css' %}" type='text/css' />
+
+<script type='text/javascript' src="{% static 'unitegallery/themes/tiles/ug-theme-tiles.js' %}"></script>
+<script>
+  jQuery(document).ready(function() {
+    var $ = jQuery;
+    var gallery = $("#story-gallery").detach();
+    var story_parts = $("#story-body").children();
+    if (story_parts.length > 0) {
+      var headers = $("#story-body :header");
+      if (headers.length > 0) {
+        story_parts = headers;
+      }
+      var insert_before = story_parts[Math.round(story_parts.length/2)];
+      gallery.prependTo(insert_before);
+    } else {
+      gallery.appendTo("#story-body");
+    }
+
+    var small_gallery = gallery.children().length < 6;
+
+    gallery.unitegallery({
+      tiles_type: small_gallery ? "justified" : "nested"
+    });
+  });
+</script>
+{% endblock footerscripts%}
+
+{% block content %}
+<div id="story-detail">
+  <div class="row">
+    <div class="col-xs-12">
+      {% page_attribute "page_title" as title %}
+      <div class="page-breadcrumbs">
+          <a href="/stories">Data Stories</a> > <span class="">{% render_model story "title" %}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {% snippet_fragment "search-widget-only" %}
+    </div>
+  </div>
+  <article class="story row">
+    <div class="col-md-8 stories-content">
+      <section>
+        <header class="story-title">
+          <h2>{% render_model story "title" %}</h2>
+          <h3 class="story-subheader">{{story.subheader}}</h3>
+        </header>
+        <div class="tags-wrapper">
+          {% for concept in story.concepts.all %}
+            <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+          {% empty %}
+            <span class="tag tag-uncategorized">Uncategorized</span>
+          {% endfor %}
+        </div>
+        <div class="story-meta-data">
+          <ul>
+            {% if story.authored_by %}
+            <li class="story-posted-by">by {{story.authored_by}}</li>
+            {% endif %}
+            {% if story.organzation %}
+            <li class="story-organization">{{story.organzation}}</li>
+            {% endif %}
+          </ul>
+        </div>
+        <div id="story-body">
+          {% if story.repostPermissionLine %}
+          <div class="story-repost-permission">
+            {{story.repostPermissionLine|safe}}
+          </div>
+          {% endif %}
+          {% if story.bodyFeaturedText %}
+          <div class="story-body-featured-text">
+            {{story.bodyFeaturedText|safe}}
+          </div>
+          {% endif %}
+          {{story.body|safe}}
+        </div>
+      </section>
+    </div>
+    <div class="col-md-4 sidebar">
+      <div class="save-story"> {% saved_status story %}</div>
+      {# if story.featured_image #}
+      <section>
+        <figure class="figure">
+          {% imgbox story.featured_image '300x300' %}
+          {# thumbnail '300x300' story.featured_image -- class="figure-img img-responsive" alt=story.featured_image_caption #}
+          {% if story.featured_image_caption %}
+            <figcaption class="figure-caption">{{story.featured_image_caption}}</figcaption>
+          {% endif %}
+        </figure>
+      </section>
+      <section id="story-gallery" class="story-images" style="display:none;">
+        {% for image in story.images.all %}
+          <img alt="{{image.caption}}" src="{{image.image.url}}"
+            data-image="{{image.image.url}}"
+            data-description="{{image.caption}}"/>
+        {% endfor %}
+      </section>
+      {# endif #}
+      
+      <aside class="panel">
+        {% if story.datasets.display %}
+        <div class="widget" data-widget="widget-datasets">
+            <div class="widget-inside">
+                <h2 class="widget-title">Related Datasets</h2>
+            </div>
+            <div class="widget-text">
+              <ul class="object-list">
+                  {% for dataset in story.datasets.display %}
+                    <li>{% dataset_headline dataset %}</li>
+                  {% empty %}
+                  <li>
+                    <div class="object-name muted">No Linked Data Sets</div>
+                  </li>
+                  {% endfor %}
+              </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if story.related_stories.published %}
+        <div class="widget" data-widget="widget-datasets">
+            <div class="widget-inside">
+                <h2 class="widget-title">Related Stories</h2>
+            </div>
+            <div class="widget-text">
+              <ul class="object-list">
+                  {% for rstory in story.related_stories.published|slice:":5" %}
+                    {% story_headline rstory %}
+                  {% empty %}
+                    <li>
+                      <div class="object-name muted">No Related Stories</div>
+                    </li>
+                  {% endfor %}
+                  <!--
+                  {% for ds in story.related_datasets.published|slice:":5" %}
+                    {% dataset_headline ds %}
+                  {% endfor %}
+                  -->
+              </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% snippet_fragment "blue-collaborate-box" %}
+      </aside>
+    </div>
+  </article>
+  
+  <div class="row">
+    <div id="comments" class="comments"></div>
+  </div>
+</div>
+{% endblock %}

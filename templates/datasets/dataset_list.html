@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs bootstrap_pagination data_commons snippet_tags cms_tags %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Data Library" "datasets:dataset_list" %}
+{% endblock %}
+
+{% block title %}Data Library{% endblock title %}
+
+{% block body_class %}dataset-list{% endblock %}
+
+{% block content %}
+<div class="widget-search" data-widget="widget-search">
+    <div class="widget-inside">
+        <div class="widget-content">
+           <h2 class="widget-title">Data Library</h2>
+           <form method="GET" action="/catalog/search/" class="primary searchform">
+             <div class="widget-content">
+               <button type="submit" class="search-icon">
+                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+               </button>
+               <input type="text" class="search-input" name="q" value="{{request.GET.q}}" placeholder="Search, ex.: early childhood education" required="required"/>
+             </div>
+           </form>
+        </div>
+    </div>
+ </div>
+{% if page_obj.number is 1 %}
+{% static_placeholder 'data library top' %}
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+    </div>
+    <div class="col-md-6 text-right">
+        <div class="pagination-totals">
+            <div class="row">
+                <div class="col-xs-7">
+                    {{ page_obj.paginator.count }} results, displaying {{page_obj.start_index}}-{{page_obj.end_index}}
+                </div>
+                <div class="col-xs-5 letter-jumper-wrapper">
+                    <label for="letter_jumper">Jump to Letter</label>
+                    <select name="letter" id="letter_jumper">
+                        <option value="1">#</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                        <option value="e">E</option>
+                        <option value="f">F</option>
+                        <option value="g">G</option>
+                        <option value="h">H</option>
+                        <option value="i">I</option>
+                        <option value="j">J</option>
+                        <option value="k">K</option>
+                        <option value="l">L</option>
+                        <option value="m">M</option>
+                        <option value="n">N</option>
+                        <option value="o">O</option>
+                        <option value="p">P</option>
+                        <option value="q">Q</option>
+                        <option value="r">R</option>
+                        <option value="s">S</option>
+                        <option value="t">T</option>
+                        <option value="u">U</option>
+                        <option value="v">V</option>
+                        <option value="w">W</option>
+                        <option value="x">X</option>
+                        <option value="y">Y</option>
+                        <option value="z">Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="object-panel">
+  <div class="search-results">
+{% for object in object_list %}
+<div class="search-result" data-type="dataset">
+  <div class="search-result-type-icon">
+    <i class="fa fa-list-alt" aria-hidden="true"></i>
+  </div>
+  <div class="search-result-content">
+    <div class="search-result-title"><a href="{{object.get_absolute_url}}">{{object.title}}</a></div>
+    <div class="search-result-description">
+      {{object.description|html_unescape|striptags|truncatewords:30}}
+    </div>
+    <div class="search-result-tags tags-wrapper">
+      {% for concept in object.concepts.all %}
+        <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+      {% empty %}
+        <span class="no-hover tag tag-uncategorized">Uncategorized</span>
+      {% endfor %}
+    </div>
+    <div class="search-result-meta">
+      <ul>
+        {% if object.temporal %}
+        <li>{{object.temporal|default:""}}</li>
+        {% endif %}
+        {% if object.publisher %}
+        <li>{{object.publisher|default:""}}</li>
+        {% endif %}
+        {% if object.access_level %}
+        <li>{{object.access_level|default:""}}</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div><!--/.search-result-content-->
+</div><!--/.search-result-->
+{% endfor %}
+</div></div>
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+
+{% static_placeholder 'data library bottom' %}
+
+{% endblock %}

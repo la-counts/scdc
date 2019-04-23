@@ -1,0 +1,5 @@
+{{object.title}}
+{{object.definition}}
+{{object.body}}
+{{object.slug}}
+{{object.our_search_labels}}

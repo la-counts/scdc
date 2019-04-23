@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs bootstrap_pagination cms_tags %}
+
+{% block title %}Search{% endblock title %}
+
+{% block body_class %}search{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Search" "search" %}
+{% endblock %}
+
+{% block content %}
+  <div class="widget-search" data-widget="widget-search">
+     <div class="widget-inside">
+         <div class="widget-content">
+            <h2 class="widget-title">Search</h2>
+            {% placeholder "search content" %}
+            <form method="GET" action="/catalog/search/" class="primary searchform">
+              <div class="widget-content">
+                <button type="submit" class="search-icon">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+                <input type="text" class="search-input" name="q" value="{{request.GET.q}}" placeholder="Search, ex.: early childhood education" required="required"/>
+              </div>
+            </form>
+         </div>
+     </div>
+  </div>
+  
+  {% if page.object_list %}
+  <div class="row" id="search_page_content">
+    <div class="col-sm-12">
+      <div class="search-results-count">Search for "{{query}}" returned {{ page.paginator.count }} results, displaying {{page.start_index}}-{{page.end_index}}</div>
+      <div class="search-results_wrapper">
+      {% if page.object_list|length > 5 %}
+      <div class="search-results-pagination pagination-upper">
+        {% bootstrap_paginate page range=10 show_prev_next="false" show_first_last="true" %}
+      </div>
+      {% endif %}
+      <div class="search_results_inside">
+      {% for result in page.object_list %}
+          <div class="search_result">
+              {{ result.rendered|safe }}
+          </div>
+      {% endfor %}
+      </div>
+      
+      <div class="search-results-pagination pagination-lower">
+        {% bootstrap_paginate page range=10 show_prev_next="false" show_first_last="true" %}
+      </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+    <div class="text-center italic">
+      <p>Enter your search in the field above to search the site</p>
+    </div>
+  {% endif %}
+{% endblock %}

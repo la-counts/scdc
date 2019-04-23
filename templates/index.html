@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n data_commons %}
+
+{% block header %}
+<div class="panel panel-default">
+  <div class="panel-body">
+    One sentence or phrase that positions the website
+    <form method="GET" action="/catalog/search/">
+      <input name="q"/><!--
+      --><button type="submit" class="btn">Search</button>
+    </form>
+    <a href="/catalog/search/">Advanced Search</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div clas="row">
+  <div class="col-md-8">
+    <a href="/stories/">Stories</a>
+    {% for story in stories %}
+      {% story_card story %}
+    {% endfor %}
+  </div>
+  <div class="col-md-4">
+    <h3>New</h3>
+    {% recent_datasets %}
+    <h3>Recently Updated</h3>
+    {% updated_datasets %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs bootstrap_pagination data_commons %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Catalog" "datasets:index" %}
+  {% breadcrumb dataset dataset.get_absolute_url %}
+  {% breadcrumb "Linked Stories" "datasets:linked_stories" dataset.id %}
+{% endblock %}
+
+{% block body_class %}dataset-stories{% endblock %}
+
+{% block content %}
+<h2>Linked Stories</h2>
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+
+{% for story in object_list %}
+    <div class="search_result">
+        {% story_headline story %}
+    </div>
+{% endfor %}
+
+{% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+{% endblock %}

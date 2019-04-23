@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n static cms_tags menu_tags sekizai_tags %}
+
+{% block title %}Account Activation | {{ site.name }}{% endblock title %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="profile-page-wrapper" class="account-page-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            {% static_placeholder 'activation content' %}
+            <p class="redirectText">You will be redirected to the Sign In page in <span class="redirect_timer">5</span> seconds.</p>
+            {% if user.is_superuser %}
+            <p class="alert alert-info">
+                <em>You are logged in as an administrator. Normally, this page would redirect.
+                <br>
+                This has been disabled to allow you to edit this page. (This message is not viewable by the public)</em>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if not user.is_superuser %}
+    <script>
+        var redirectInterval = setInterval(function() {
+            var redirectSpan = jQuery('span.redirect_timer');
+            var timeRemaining = parseInt(redirectSpan.text());
+            newTimeRemaining = timeRemaining - 1;
+            jQuery('span.redirect_timer').text(newTimeRemaining);
+            if (newTimeRemaining <= 0) {
+                jQuery('.redirectText').html("Now redirecting you to the Sign In page!");
+                clearInterval(redirectInterval);
+                window.location.href = "/accounts/login/";
+            }
+        }, 1000);
+    </script>
+{% endif %}
+
+{% endblock %}

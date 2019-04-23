@@ -1,0 +1,6 @@
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs static cms_tags menu_tags sekizai_tags cache %}
+
+{% page_attribute "page_title" as title %}
+<div class="page-breadcrumbs">
+    <a href="/explore">Priority Areas</a> > <span class="">{{title}}</span>
+</div>

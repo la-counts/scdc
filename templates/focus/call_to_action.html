@@ -1,0 +1,13 @@
+{% load data_commons cms_tags static %}
+<div class="widget" data-widget="{{ widget.widget_type }}">
+   <div class="widget-inside">
+       <h2 class="widget-title">{{ widget.title }}</h2>
+       <div class="widget-content">
+           <p>{{ widget.text }}
+           {% if widget.link %}
+               <a href="{{ widget.link }}"><img src="{% static "images/link-arrow.svg" %}" class="svg-right-arrow"></a>
+           {% endif %}
+           </p>
+       </div>
+   </div>
+</div>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs %}
+
+{% block title %}Submit Story{% endblock title %}
+
+{% block body_class %}suggest-story{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Stories" "stories:index" %}
+  {% breadcrumb "Submit" "stories:submit" %}
+{% endblock %}
+
+
+{% block content %}
+<form method="POST" action="." enctype="multipart/form-data">
+  {{ form.media }}
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      Submit
+    </button>
+  {% endbuttons %}
+</form>
+
+{% endblock %}

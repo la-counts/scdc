@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs bootstrap_pagination data_commons static cms_tags menu_tags sekizai_tags cache %}
+
+{% block title %}Stories{% endblock title %}
+
+{% block body_class %}stories{% endblock %}
+
+{% block content %}
+<div class="widget-search" data-widget="widget-search">
+    <div class="widget-inside">
+        <div class="widget-content">
+           <h2 class="widget-title">Data Stories</h2>
+           <form method="GET" action="/catalog/search/" class="primary searchform">
+             <div class="widget-content">
+               <button type="submit" class="search-icon">
+                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+               </button>
+               <input type="text" class="search-input" name="q" value="{{request.GET.q}}" placeholder="Search, ex.: early childhood education" required="required"/>
+             </div>
+           </form>
+        </div>
+    </div>
+ </div>
+
+{% if object_list %}
+{% comment %}
+<div class="row">
+    <div class="col-xs-12">
+    {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+    </div>
+</div>
+{% endcomment %}
+{% endif %}
+<div id="stories-content-wrapper">
+    <div class="row">
+        <div class="col-sm-8" id="stories-boxes">
+            <div class="widget" data-widget="widget-title">
+                <div class="widget-inside">
+                    <h1 class="widget-title">Data Stories</h1>
+                </div>
+            </div>
+            {% if object_list %}
+            <div class="row equal stories-content">
+            {% for story in object_list %}
+                {% cycle 1 2 3 as storycounter silent %}
+                {% story_card story 4 %}
+            {% if storycounter is 3 %}
+            </div><div class="row equal stories-content">
+            {% endif %}
+            {% endfor %}
+            </div>
+            <div class="paginate-wrapper">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div><div class="col-sm-4 content-sidebar" id="stories-sidebar">
+            {% static_placeholder "story sidebar" %}
+            {% comment %}
+            <div class="object-widget" data-color="lightblue">
+                <h2>New Data Sets</h2>
+                {% recent_datasets %}
+            </div>
+            <div class="object-widget" data-color="grey">
+                <h2>Recently Updated</h2>
+                {% updated_datasets %}
+            </div>
+            {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endblock %}

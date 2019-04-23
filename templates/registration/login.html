@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs static %}
+
+{% block title %}Sign In | {{ site.name }}{% endblock title %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div id="login-page-wrapper" class="account-page-wrapper">
+  <div class="widget-search" data-widget="widget-search">
+    <div class="widget-inside">
+        <div class="widget-content">
+             <h2 class="widget-title">LA Counts Sign In</h2>
+             <div class="widget-content">
+                 <form method="GET" action="/catalog/search/" class="primary searchform">
+                     <button type="submit" class="search-icon">
+                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                     </button>
+                     <input type="text" class="search-input" name="q" placeholder="Search, ex.: early childhood education" required="required"/>
+                 </form>
+             </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="widget" data-widget="widget-title">
+          <div class="widget-inside">
+              <h1 class="widget-title">Sign In</h1>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <p class="italic lighter">Need an account? <a href="{% url 'registration_register' %}">{% trans "Register" %} <img src="{% static "images/link-arrow.svg" %}" class="svg-right-arrow"></a></p>
+      <p class="italic lighter">{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %} <img src="{% static "images/link-arrow.svg" %}" class="svg-right-arrow"></a></p>
+    </div>
+    <div class="col-sm-8">
+      <form method="post" action="." class="login_form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="hidden" name="next" value="{{ next }}" />
+      
+        {% buttons %}
+          <div class="row pad-top-25">
+            <div class="col-sm-offset-8 col-sm-4 text-right">
+              <button type="submit" class="large-button button-block text-center">
+                Log In
+              </button>
+            </div>
+          </div>
+        {% endbuttons %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

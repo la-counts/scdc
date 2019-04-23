@@ -1,0 +1,5 @@
+{{object.title}}
+{{object.body}}
+{% for concept in object.concepts.all %}
+{{concept.our_search_labels}}
+{% endfor %}

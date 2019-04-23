@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load i18n django_bootstrap_breadcrumbs data_commons cms_tags cache %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Publishers" "datasets:index" %}
+{% endblock %}
+
+{% block title %}Publishers{% endblock title %}
+
+{% block body_class %}publishers{% endblock %}
+
+
+{% block content %}
+{% cache 500 "publisher_index" %}
+<div class="section-page-header">
+    <h2>Publishers</h2>
+
+    {% static_placeholder 'publisher listing top' %}
+</div>
+
+{% pulisher_dataset_bubble %}
+
+{% static_placeholder 'publisher listing middle' %}
+
+<a href="{% url 'datasets:submit_datasources' %}" class="btn btn-primary">Suggest a Data Source</a>
+
+<div class="publisher-listing-wrapper row" data-singleline="1">
+  {# Publisher listing #}
+  {% if publishers %}
+  <div class="col-xs-12 col-md-3">
+    <ul class="publisher-list">
+      {% for publisher in publishers|slice:"0::4" %}
+      <li class="publisher-item {% with publisher.get_children as children %}{% if children %} has-children {% endif %}{% endwith %}">
+        <div class="publisher-item-inside">
+          <div class="publisher-expand-icons">
+            <i class="open fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="closed fa fa-minus-circle" aria-hidden="true"></i>
+          </div>
+          <a href="{{publisher.get_absolute_url}}">{{publisher}}</a>
+        </div>
+        {% with publisher.get_children as children %}
+        {% if children %}
+        <ul class="publisher-list-child">
+          {% for child in children %}
+          <li><a href="{{child.get_absolute_url}}">{{child}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-xs-12 col-md-3">
+    <ul class="publisher-list">
+      {% for publisher in publishers|slice:"1::4" %}
+      <li class="publisher-item {% with publisher.get_children as children %}{% if children %} has-children {% endif %}{% endwith %}">
+        <div class="publisher-item-inside">
+          <div class="publisher-expand-icons">
+            <i class="open fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="closed fa fa-minus-circle" aria-hidden="true"></i>
+          </div>
+          <a href="{{publisher.get_absolute_url}}">{{publisher}}</a>
+        </div>
+        {% with publisher.get_children as children %}
+        {% if children %}
+        <ul class="publisher-list-child">
+          {% for child in children %}
+          <li><a href="{{child.get_absolute_url}}">{{child}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-xs-12 col-md-3">
+    <ul class="publisher-list">
+      {% for publisher in publishers|slice:"2::4" %}
+      <li class="publisher-item {% with publisher.get_children as children %}{% if children %} has-children {% endif %}{% endwith %}">
+        <div class="publisher-item-inside">
+          <div class="publisher-expand-icons">
+            <i class="open fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="closed fa fa-minus-circle" aria-hidden="true"></i>
+          </div>
+          <a href="{{publisher.get_absolute_url}}">{{publisher}}</a>
+        </div>
+        {% with publisher.get_children as children %}
+        {% if children %}
+        <ul class="publisher-list-child">
+          {% for child in children %}
+          <li><a href="{{child.get_absolute_url}}">{{child}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-xs-12 col-md-3">
+    <ul class="publisher-list">
+      {% for publisher in publishers|slice:"3::4" %}
+      <li class="publisher-item {% with publisher.get_children as children %}{% if children %} has-children {% endif %}{% endwith %}">
+        <div class="publisher-item-inside">
+          <div class="publisher-expand-icons">
+            <i class="open fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="closed fa fa-minus-circle" aria-hidden="true"></i>
+          </div>
+          <a href="{{publisher.get_absolute_url}}">{{publisher}}</a>
+        </div>
+        {% with publisher.get_children as children %}
+        {% if children %}
+        <ul class="publisher-list-child">
+          {% for child in children %}
+          <li><a href="{{child.get_absolute_url}}">{{child}}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+
+{% static_placeholder 'publisher listing bottom' %}
+
+{% endcache %}
+{% endblock %}

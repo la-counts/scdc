@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load i18n data_commons bootstrap3 django_bootstrap_breadcrumbs imagekit %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb user "view-self" %}
+{% endblock %}
+
+
+{% block content %}
+<div id="profile-page-wrapper" class="account-page-wrapper">
+  <div class="widget-search" data-widget="widget-search">
+    <div class="widget-inside">
+        <div class="widget-content">
+             <h2 class="widget-title">LA Counts Account</h2>
+             <div class="widget-content">
+                 <form method="GET" action="/catalog/search/" class="primary searchform">
+                     <button type="submit" class="search-icon">
+                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                     </button>
+                     <input type="text" class="search-input" name="q" placeholder="Search, ex.: early childhood education" required="required"/>
+                 </form>
+             </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <form method="POST" action="." enctype="multipart/form-data">
+        {{ form.media }}
+        {% csrf_token %}
+      
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <div class="avatar-box">
+              <div class="avatar-image">
+                {% if user.avatar %}
+                  {% thumbnail '350x350' user.avatar -- class="img-responsive" %}
+                {% else %}
+                  <img class="no-avatar img-responsive" src="/static/images/no-avatar.jpg">
+                {% endif %}
+              </div>
+              <div class="avatar-upload-wrapper">
+                <div class="avatar-button-overlay">
+                  <button id="avatar_button_overlay" class="large-button button-block">
+                    <div class="button-upper">
+                      {% if user.avatar %}Edit{% else %}Add{% endif %} Profile Image
+                    </div>
+                    <div class="button-lower">Upload a Picture</div>
+                  </button>
+                </div>
+                <div class="avatar-upload-actual">
+                  {% bootstrap_field form.avatar %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-12">
+            <div class="widget" data-widget="widget-title">
+              <div class="widget-inside">
+                <h2 class="widget-title">Account</h2>
+              </div>
+            </div>
+            {% bootstrap_field form.display_name %}
+            {% bootstrap_field form.email %}
+            {% bootstrap_field form.title %}
+            {% bootstrap_field form.organization %}
+            {% bootstrap_field form.website %}
+            {% bootstrap_field form.interests %}
+            
+            <div class="form-buttons">
+              {% buttons %}
+                <div class="row pad-top-25">
+                  <div class="col-sm-offset-3 col-sm-4 text-right">
+                    <a href="/" class="large-button button-block text-center button-grey">
+                      Cancel
+                    </a>
+                  </div>
+                  <div class="col-sm-offset-1 col-sm-4 text-right">
+                    <button type="submit" class="large-button button-block text-center">
+                      Update Profile
+                    </button>
+                  </div>
+                </div>
+              {% endbuttons %}
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

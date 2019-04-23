@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n bootstrap3 django_bootstrap_breadcrumbs comments comments_xtd data_commons snippet_tags cms_tags %}
+
+{% block title %}{{ dataset.title }}{% endblock title %}
+
+{% block body_class %}dataset-detail{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb "Data Library" "datasets:dataset_list" %}
+  {% breadcrumb dataset.title "datasets:dataset_detail" dataset.pk %}
+{% endblock %}
+
+{% block footerscripts %}
+<script>
+  window.comments_props = {% get_commentbox_props for dataset %};
+  {% if user.is_authenticated %}
+  window.comments_props_override = {
+    allow_comments: true,
+    allow_feedback: true,
+    show_feedback: true,
+    allow_flagging: true,
+    poll_interval: 5000, // In milliseconds.
+  };
+  {% else %}
+  window.comments_props_override = {
+    allow_comments: false,
+    allow_feedback: false,
+    show_feedback: true,
+    allow_flagging: false,
+    poll_interval: 60000, // In milliseconds.
+  };
+  {% endif %}
+  pushRecentView('dataset', {
+    title: "{{dataset.title}}",
+    url: window.location.href,
+  });
+</script>
+<script type="text/javascript"
+        src="{% url 'javascript-catalog' %}"></script>
+<script src="{% static 'django_comments_xtd/js/vendor-2.0.3.js' %}"></script>
+<script src="{% static 'django_comments_xtd/js/plugin-2.0.3.js' %}"></script>
+{% endblock footerscripts%}
+
+{% block content %}
+<div id="dataset-detail">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-breadcrumbs">
+          <a href="/catalog">Data Library</a> > <span class="">{{dataset.title}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      {% snippet_fragment "search-widget-only" %}
+    </div>
+  </div>
+  <div class="dataset content">
+    <div class="row">
+      <div class="col-md-8 dataset-content">
+        <header class="dataset-title">
+          <h2>{{dataset.title}}</h2>
+        </header>
+        <div class="tags-wrapper">
+        {% for concept in dataset.concepts.all %}
+          <a class="no-hover tag tag-{{concept|slugify}}" href="{{concept.get_absolute_url}}">{{concept}}</a>
+        {% empty %}
+          <span class="tag tag-uncategorized">Uncategorized</span>
+        {% endfor %}
+        </div>
+        <div class="widget" data-widget="widget-metadata">
+            <div class="widget-inside">
+                <h2 class="widget-title">Selected Metadata</h2>
+            </div>
+            <div class="widget-text">
+              <div class="meta-table">
+                  {% for tag in dataset.meta_tags %}
+                    <div class="meta-row" data-meta="{{tag.label|slugify}}">
+                      <div class="meta-key" aria-label="{{tag.key}}">{{tag.label}}</div><!--
+                      --><div class="meta-value">
+                        {% if tag.label|slugify == "description" %}
+                          {% if tag.value|length > 115 %}
+                          <div class="meta-accordion" data-open="">
+                            <div class="meta-accordion-icon">
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                              <i class="fa fa-minus" aria-hidden="true"></i>
+                            </div>
+                          {% endif %}
+                          {{tag.value}}
+                          {% if tag.value|length > 115 %}
+                          </div>
+                          {% endif %}
+                        {% elif tag.label|slugify == "modified" %}
+                          {{tag.value|date:"F jS, Y, g:i A"}}
+                        {% else %}
+                          {{tag.html_value}}
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+        </div>
+        <div class="meta-disclaimer">
+            Metadata shown in the table above is not necessarily representative of all data available in this dataset. <a href="{{dataset.get_external_access_url}}" target="_blank" class="access-data">
+              Access original data source <img src="{% static "images/link-arrow.svg" %}" class="svg-right-arrow">
+            </a>
+        </div>
+        {% if False %}
+          {% with dataset.recordcolumn_set.all as columns %}
+          {% if columns|length %}
+          <div class="row space-top">
+            <div class="col-xs-12">
+              <h4>Columns</h4>
+              <dl class="dl-horizontal">
+              {% for rc in columns %}
+                <dt>{{ rc.field_name }}</dt>
+                <dd>
+                  {{rc.label}}
+                  {% if rc.description %}
+                  {{ rc.description }}
+                  {% else %}
+                  {% if rc.concept %}
+                    {% if rc.concept.definition %}
+                      <a href="#concept-{{rc.concept.pk}}">{{rc.concept}}</a>
+                    {% else %}
+                      {{rc.concept}}
+                    {% endif %}
+                  {% else %}
+                  {{ rc.data_type }}
+                  {% endif %}
+                  {% endif %}
+                </dd>
+              {% endfor %}
+              </dl>
+            </div><!--/.col-xs-12-->
+          </div><!--/.row-->
+          {% endif %}
+          {% endwith %}
+        {% endif %}
+  
+        {% if False %}
+          {% with dataset.all_definitions as definitions %}
+          {% if definitions|length %}
+          <div class="row">
+            <div class="col-xs-12">
+              <h4>Definitions</h4>
+              <dl class="dl-horizontal">
+              {% for concept in definitions %}
+                <dt id="concept-{{concept.pk}}">{{concept.preferred_label}}:</dt>
+                <dd>{{concept.definition}}</dd>
+              {% endfor %}
+              </dl>
+            </div><!--/.col-xs-12-->
+          </div><!--/.row-->
+          {% endif %}
+          {% endwith %}
+        {% endif %}
+        <div class="row">
+          <div class="col-xs-12">
+            <div id="comments" class="comments"></div>
+          </div>
+        </div>
+    </div><!--/.col-md-9-->
+  
+    <div class="col-md-4 sidebar">
+      <div class="row">
+        <div class="col-xs-12">
+          <a href="{{dataset.get_external_access_url}}" target="_blank" class="access-data save-story no-hover">
+            <div class="save-star">
+              <i class="fa fa-external-link" aria-hidden="true"></i>
+            </div>
+            <div class="save-text">Access original data source</div>
+          </a>
+        </div>
+        <div class="col-xs-12">
+          <div class="dataset-saved-status save-story">
+            {% saved_status dataset %}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="widget widget-group" data-widget="header" data-showtitle="True">
+            <div class="widget-inside">
+              <div class="widget-content">
+                <div class="widget-dataset">
+                  <div class="widget-dataset-title">
+                    Metadata completion rate
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="progress-wrapper">
+            <div class="circle-wrapper">
+              <div class="c100 small {% if dataset.percentage_complete >= 50 %} green {% else %} red {% endif %} p{{dataset.percentage_complete|floatformat:"0"}} big">
+                  <span>{{dataset.percentage_complete|floatformat:"0"}}%</span>
+                  <div class="slice">
+                      <div class="bar"></div>
+                      <div class="fill"></div>
+                  </div>
+              </div>
+            </div><!--
+            --><div class="progress-footnote">
+              {% static_placeholder "progress footnote" %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="panel">
+        <div class="widget" data-widget="widget-datasets">
+            <div class="widget-inside">
+                <h2 class="widget-title">Related Datasets</h2>
+            </div>
+            <div class="widget-text">
+              <ul class="object-list">
+                  {% for ds in dataset.related_records.published|slice:":5" %}
+                    <li>{% dataset_headline ds %}</li>
+                  {% empty %}
+                    <li>
+                      <div class="object-name muted">No Related Datasets</div>
+                    </li>
+                  {% endfor %}
+              </ul>
+            </div>
+        </div>
+        {% if dataset.related_stories.published %}
+        <div class="widget" data-widget="widget-datasets">
+            <div class="widget-inside">
+                <h2 class="widget-title">Related Stories</h2>
+            </div>
+            <div class="widget-text">
+              <ul class="object-list">
+                {% for story in dataset.related_stories.published|slice:":5" %}
+                  <li>{% story_headline story %}</li>
+                {% empty %}
+                  <div class="object-name muted">No Related Stories</div>
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if False %}
+        <div class="widget" data-widget="widget-datasets">
+            <div class="widget-inside">
+                <h2 class="widget-title">Linked Stories</h2>
+            </div>
+            <div class="widget-text">
+              <ul class="object-list">
+                {% for story in dataset.linked_stories.published|slice:":5" %}
+                  <li>{% story_headline story %}</li>
+                {% empty %}
+                  <div class="object-name muted">No Linked Stories</div>
+                {% endfor %}
+              </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% snippet_fragment "blue-collaborate-box" %}
+      </aside>
+    </div>
+  </div>
+  </div>
+</div>
+
+{% endblock %}

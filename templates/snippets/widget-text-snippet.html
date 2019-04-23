@@ -1,0 +1,13 @@
+{% load static %}
+<div class="widget" data-widget="{% widget_type %}">
+    <div class="widget-inside">
+        <h2 class="widget-title">{% widget_title %}</h2>
+        <div class="widget-content">
+            <p>{% widget_text %}
+            {% if show_arrow %}
+                <a href="#"><img src="{% static "images/link-arrow.svg" %}" class="svg-right-arrow"></a>
+            {% endif %}
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n data_commons %}
+
+{% block body_class %}accounts{% endblock %}
+
+{% block content %}
+<div>
+{% for ds in object_list %}
+{% dataset_headline ds %}
+{% endfor %}
+</div>
+{% endblock %}
