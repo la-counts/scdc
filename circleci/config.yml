@@ -1,0 +1,101 @@
+version: 2.0
+
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/python
+    working_directory: ~/code
+    steps:
+      - checkout
+      - save_cache:
+          key: code-{{ .Revision }}
+          paths:
+            - ~/code
+
+
+  build_image:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python
+    steps:
+      - setup_remote_docker:
+          reusable: true
+          exclusive: false
+      - restore_cache:
+          keys:
+            - code-{{ .Revision }}
+      - restore_cache:
+          keys:
+            - docker-images-{{ .Branch }}
+      - run:
+          name: Build docker image
+          command: |
+            set +o pipefail
+            if [ -f ~/docker-images.tar.gz ]; then
+              gunzip -c ~/docker-images.tar.gz | docker load
+              docker build --cache-from=$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH --tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 --tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH .
+            else
+              docker build --tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 --tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH .
+            fi
+      - run:
+          name: Save Docker image layer cache
+          command: docker save $CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 | gzip > ~/docker-images.tar.gz
+      - save_cache:
+          key: docker-images-{{ .Branch }}
+          paths:
+            - ~/docker-images.tar.gz
+      - save_cache:
+          key: docker-images-{{ .Revision }}
+          paths:
+            - ~/docker-images.tar.gz
+
+
+  deploy:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python
+    environment:
+      - CLUSTER: sandbox-hosting
+      - SERVICE: scdc
+      - REGION: us-west-2
+      - REPOSITORY: 008036621198.dkr.ecr.us-west-2.amazonaws.com/scdc
+    steps:
+      - setup_remote_docker:
+          reusable: true
+          exclusive: false
+      - restore_cache:
+          keys:
+            - code-{{ .Revision }}
+      - restore_cache:
+          keys:
+            - docker-images-{{ .Revision }}
+      - run:
+          name: Deployment dependencies
+          command: sudo pip install awscli
+      - run:
+          name: Load Docker image layer cache
+          command: gunzip -c ~/docker-images.tar.gz | docker load
+      - run:
+          name: Deploy to AWS ECS
+          command: |
+            set +o pipefail
+            docker tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 $CIRCLE_PROJECT_REPONAME:latest
+            eval `aws ecr get-login --no-include-email --region $REGION`
+            docker tag $CIRCLE_PROJECT_REPONAME:$CIRCLE_SHA1 $REPOSITORY:$CIRCLE_SHA1
+            docker push $REPOSITORY:$CIRCLE_SHA1
+            ./devops/ecs-deploy -r $REGION -c $CLUSTER -n $SERVICE -i $REPOSITORY:$CIRCLE_SHA1
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - checkout_code
+      - build_image:
+          requires:
+            - checkout_code
+      - deploy:
+          requires:
+            - build_image
+          filters:
+              branches:
+                only: master
