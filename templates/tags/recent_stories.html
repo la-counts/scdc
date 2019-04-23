@@ -1,0 +1,11 @@
+{% load data_commons %}
+<ul class="object-list recent-stories">
+{% for story in stories %}
+<li>
+  <div class="object-name"><a href="{{story.get_absolute_url}}">{{story.title}}</a></div>
+  <div class="object-meta">
+    {{story.published_at|date:"M d Y"}} | {{story.concepts.all.0}}
+  </div>
+</li>
+{% endfor %}
+</ul>

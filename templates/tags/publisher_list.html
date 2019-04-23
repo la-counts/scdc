@@ -1,0 +1,76 @@
+<div class="publisher-listing-wrapper row" data-singleline="2">
+  {# Publisher listing #}
+    {% if filters %}
+    <div class="publisher-listing-filters">
+        <div class="filter-title">Filter by type</div>
+        <div class="filter-controls">
+            <span>Select:</span> <a href="#select-all" class="filter-link" data-filter="all">All</a> | <a href="#select-none" class="filter-link" data-filter="none">None</a>
+        </div>
+        <div class="filter-inputs row">
+            {% for filterGroup in filters %}
+                <div class="filter-group col-sm-3">
+                    {% for filterItem in filterGroup %}
+                    <label for="filter_{{filterItem|slugify}}">
+                        <input id="filter_{{filterItem|slugify}}" data-filter="{{filterItem|slugify}}" type="checkbox" checked="checked">
+                        <span class="filter-item-text">{{filterItem}}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    {% if groups %}
+        <div class="publisher-listing-alphabet">
+            <ul class="publisher-anchors">
+            {% for alpha, publishers in groups.items %}
+                <li>
+                {% if publishers %}
+                    <a data-letter="{{alpha}}" class="alpha-publisher-anchor" href="#alpha_{{alpha}}">{{alpha}}</a>
+                {% else %}
+                    <span data-letter="{{alpha}}" class="alpha-no-publishers">{{alpha}}</span>
+                {% endif %}
+            {% endfor %}
+                </li>
+            </ul>
+        </div>
+        <ul class="publisher-listing-grouped">
+        {% for alpha, publishers in groups.items %}
+            {% if publishers %}
+                <li class="alpha-publisher-group" data-letter="{{alpha}}">
+                  <div class="group-wrap-outer">
+                    <div class="group-wrap">
+                      <a name="alpha_{{alpha}}"></a>
+                      <div class="alpha-letter">{{alpha}}</div>
+                      <div class="alpha-publishers">
+                          <ul class="publisher-list">
+                              {% for publisher in publishers %}
+                              <li data-agency="{{publisher.agency_type}}" data-name="{{publisher.get_display_name}}" data-filter="{{publisher.agency_filter}}" class="publisher-item {% with publisher.get_children as children %}{% if children %} has-children {% endif %}{% endwith %}">
+                                <div class="publisher-item-inside">
+                                  <a href="{{publisher.get_absolute_url}}">{{publisher.get_display_name}}</a>
+                                  <div class="publisher-expand-icons">
+                                    <i class="open fa fa-plus-circle" aria-hidden="true"></i>
+                                    <i class="closed fa fa-minus-circle" aria-hidden="true"></i>
+                                  </div>
+                                </div>
+                                {% with publisher.get_children as children %}
+                                {% if children %}
+                                <ul class="publisher-list-child">
+                                  {% for child in children %}
+                                  <li data-agency="{{child.agency_type}}" data-filter="{{child.agency_filter}}" data-name="{{child.child_get_display_name}}" ><a href="{{child.get_absolute_url}}">{{child.child_get_display_name}}</a></li>
+                                  {% endfor %}
+                                </ul>
+                                {% endif %}
+                                {% endwith %}
+                              </li>
+                              {% endfor %}
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>

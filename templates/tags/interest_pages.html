@@ -1,0 +1,13 @@
+{% load imagekit %}
+<div class="row">
+{% for page in pages %}
+<div class="col-md-3">
+  <a href="{{page.get_absolute_url}}">
+  {% if page.link_image %}
+  {% thumbnail '800x600' page.link_image -- class="img-responsive" %}
+  {% endif %}
+  {{page}}
+  </a>
+</div>
+{% endfor %}
+</div>

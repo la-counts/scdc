@@ -1,0 +1,51 @@
+{% load data_commons cropping static snippet_tags cms_tags %}
+{% if width is 12 %}
+  <div class="col-sm-8 widget-featured-story-large-text">
+    <div class="bg-yellow">
+      <div class="widget-featured-story-wrapper">
+        <a class="blocked no-hover" href="{{story.get_absolute_url}}">
+        <div class="widget-featured-story-inside">
+          <div class="widget-featured-large-title white">{{story.title|truncatechars:75}}</div>
+          <div class="widget-featured-large-content black">
+            <div class="story-subheader featured-story-snippet">
+              {% snippet_fragment "homepage-featured-story-text" %}
+            </div>
+          </div>
+        </div>
+        </a>
+      </div>
+      <img class="widget-featured-story-large-spacer" src="/static/images/widget-featured-story-spacer.png">
+    </div>
+  </div>
+  <div class="col-sm-4 widget-featured-story-large-image">
+    <div class="widget-featured-story-inside">
+      <div class="widget-featured-story-image" style="background-image:url('{% if story.card_image != '' %}{% cropped_thumbnail story 'card_image' %}{% else %}{% static 'images/no-story-image.jpg' %}{% endif %}');">
+        <a class="no-hover" href="{{story.get_absolute_url}}">
+          <img src="/static/images/widget-featured-story-spacer.png">
+        </a>
+      </div>
+    </div>
+  </div>
+{% else %}
+<div class="col-sm-{{width}} widget-featured-story">
+  <div class="widget-featured-story-inside">
+    <div class="widget-featured-story-image" style="background-image:url('{% if story.card_image != '' %}{% cropped_thumbnail story 'card_image' %}{% else %}{% static 'images/no-story-image.jpg' %}{% endif %}');">
+      <a class="no-hover" href="{{story.get_absolute_url}}">
+        <img src="/static/images/widget-story-spacer.png">
+      </a>
+    </div>
+    <div class="widget-featured-story-text">
+      <a href="{{story.get_absolute_url}}">
+        {{story.title|truncatechars:65}}
+      </a>
+      {% comment %}
+      <!--<div class="story-subheader">
+      {% if story.subheader %}
+        <p>{{story.subheader|truncatechars:45}}</p>
+      {% endif %}
+      </div>-->
+      {% endcomment %}
+    </div>
+  </div>
+</div>
+{% endif %}

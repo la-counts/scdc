@@ -1,0 +1,11 @@
+{% load data_commons %}
+<ul class="object-list updated-datasets">
+{% for ds in datasets %}
+<li>
+  <div class="object-name"><a href="{{ds.get_absolute_url}}">{{ds.title}}</a></div>
+  <div class="object-meta">
+    {{ds.updated_at|date:"M d Y"}} | {{ds.publisher}}
+  </div>
+</li>
+{% endfor %}
+</ul>

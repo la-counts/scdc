@@ -1,0 +1,26 @@
+{% load activity_tags %}
+{% if user.is_authenticated %}
+
+<saved-status href="{{url}}">
+
+{% if is_following %}
+   <a href="{{url}}" class="saved no-hover">
+   <span class="save-star"><i class="fa fa-star" aria-hidden="true"></i></span>
+   <span class="save-text">Remove from my account</span>
+   </a>
+{% else %}
+   <a href="{{url}}" class="unsaved no-hover">
+    <span class="save-star"><i class="fa fa-star-o" aria-hidden="true"></i></span>
+    <span class="save-text">Save to my account</span>
+    </a>
+{% endif %}
+
+</saved-status>
+{% else %}
+<div class="saved-status-unregistered">
+ <a href="{{url}}" class="unsaved no-hover">
+ <span class="save-star"><i class="fa fa-star-o" aria-hidden="true"></i></span>
+ <span class="save-text">Save to my account</span>
+ </a>
+</div>
+{% endif %}

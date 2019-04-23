@@ -1,0 +1,7 @@
+{% load data_commons %}
+<div class="dataset-headline">
+  <h5>
+    <a href="{{dataset.get_absolute_url}}">{{dataset.title}}</a>
+  </h5>
+  <span>{{dataset.updated_at|date:"m-d-Y"}} | {{dataset.publisher}}</span>
+</div>

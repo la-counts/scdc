@@ -1,0 +1,11 @@
+{% load imagekit static %}
+{% if image %}
+{% thumbnail size image as th %}
+<div class="story-img-box" style="background-image: url({{th.url}});">
+<img src="{% static 'images/img-spacer_360.png' %}" width="{{width}}" height="{{height}}"/>
+</div>
+{% else %}
+<div class="story-img-box" style="background-image: url({% static 'images/default-story-image_360.jpg' %});">
+<img src="{% static 'images/img-spacer_360.png' %}" width="{{width}}" height="{{height}}"/>
+</div>
+{% endif %}

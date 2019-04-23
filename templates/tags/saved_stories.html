@@ -1,0 +1,6 @@
+{% load data_commons %}
+<div class="saved-stories">
+{% for story in stories %}
+{% story_headline story %}
+{% endfor %}
+</div>

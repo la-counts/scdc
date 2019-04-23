@@ -1,0 +1,7 @@
+{% for tag in tags %}
+{% if tag.preferred_label %}
+<a href="{{tag.get_absolute_url}}">{{tag.preferred_label}}</a>
+{% else %}
+{{tag.name}}
+{% endif %}
+{% endfor %}
